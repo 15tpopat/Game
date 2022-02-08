@@ -4,13 +4,13 @@ import sys
 if __name__ == "__main__":
     # Initialise pygame
     pygame.init()
-    pygame.display.set_caption("Game")
+    pygame.display.set_caption(CAPTION)
 
     # Manage how often the screen updates
     clock = pygame.time.Clock()
 
     # Initiate the screen with the given width and height
-    screen = pygame.display.set_mode([600, 400])
+    screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
 
     # Start game loop
     while True:
@@ -24,5 +24,5 @@ if __name__ == "__main__":
         # Update the screen
         pygame.display.update()
 
-        # Limit the screen updates to 60 frames per second
-        clock.tick(60)
+        # Limit the screen updates to FPS frames per second
+        clock.tick(FPS)
