@@ -1,6 +1,8 @@
 import pygame
 import sys
 
+from settings import *
+
 if __name__ == "__main__":
     # Initialise pygame
     pygame.init()
