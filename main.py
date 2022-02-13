@@ -32,6 +32,11 @@ def main() -> None:
                 pygame.quit()
                 sys.exit()
 
+            # Take a screenshot every time the equals button is pressed
+            elif event.type == pygame.KEYUP:
+                if event.key == pygame.K_EQUALS:
+                    takeScreenshot(screen)
+
         # Update the screen
         updateScreen()
 
@@ -49,9 +54,6 @@ if __name__ == "__main__":
     # Initiate the screen with the given width and height
     screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
     screenRect = screen.get_rect()
-
-    # Take a screenshot every time the game is run
-    takeScreenshot(screen)
 
     # Run the main loop
     main()
