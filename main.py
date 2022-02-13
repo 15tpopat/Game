@@ -5,6 +5,7 @@ from os import listdir
 
 from settings import *
 from player import Player
+from libraries.network import Network
 
 def takeScreenshot(screen: pygame.Surface) -> None:
     """ This function will take a screenshot of the game every time the function
@@ -60,6 +61,8 @@ if __name__ == "__main__":
     # Initiate the screen with the given width and height
     screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
     screenRect = screen.get_rect()
+
+    network = Network()
 
     # Setup necessary variables
     player = Player(
