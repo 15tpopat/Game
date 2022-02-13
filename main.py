@@ -6,14 +6,20 @@ from os import listdir
 from settings import *
 
 def takeScreenshot(screen: pygame.Surface) -> None:
-    """ This function will take a screenshot of the game every time it is run
-        and will be used to help track the development of the game. """
+    """ This function will take a screenshot of the game every time the function
+        is called and will be used to help track the development of the game. """
 
     # Get the number to name the screenshot by adding 1 to the number of existing screenshots
     screenshotNumber = len(listdir(SCREENSHOT_PATH)) + 1
 
     # Save a snapshot of the screen to the screenshot directory
     pygame.image.save(screen, f"{SCREENSHOT_PATH}/screenshot #{screenshotNumber}.jpg")
+
+def updateScreen() -> None:
+    # Set the background colour
+    screen.fill(BACKGROUND_COLOUR)
+
+    pygame.display.update()
 
 def main() -> None:
     """ This function contains the main game loop. """
@@ -27,7 +33,7 @@ def main() -> None:
                 sys.exit()
 
         # Update the screen
-        pygame.display.update()
+        updateScreen()
 
         # Limit the screen updates to FPS frames per second
         clock.tick(FPS)
