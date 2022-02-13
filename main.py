@@ -4,6 +4,7 @@ import sys
 from os import listdir
 
 from settings import *
+from player import Player
 
 def takeScreenshot(screen: pygame.Surface) -> None:
     """ This function will take a screenshot of the game every time the function
@@ -15,9 +16,12 @@ def takeScreenshot(screen: pygame.Surface) -> None:
     # Save a snapshot of the screen to the screenshot directory
     pygame.image.save(screen, f"{SCREENSHOT_PATH}/screenshot #{screenshotNumber}.jpg")
 
-def updateScreen() -> None:
+def updateScreen(player: Player) -> None:
     # Set the background colour
     screen.fill(BACKGROUND_COLOUR)
+
+    # Draw the player on the screen
+    player.draw(screen)
 
     pygame.display.update()
 
@@ -37,8 +41,10 @@ def main() -> None:
                 if event.key == pygame.K_EQUALS:
                     takeScreenshot(screen)
 
+        player.move()
+
         # Update the screen
-        updateScreen()
+        updateScreen(player)
 
         # Limit the screen updates to FPS frames per second
         clock.tick(FPS)
@@ -54,6 +60,17 @@ if __name__ == "__main__":
     # Initiate the screen with the given width and height
     screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
     screenRect = screen.get_rect()
+
+    # Setup necessary variables
+    player = Player(
+        "Sasuke",       # Name
+        80.0,           # Health
+        60.0,           # Chakra
+        90,             # Maximum Chakra
+        0.2,            # Recharge Rate
+        "lightning",    # Primary Affinity
+        "fire",         # Secondary Affinity
+    )
 
     # Run the main loop
     main()
