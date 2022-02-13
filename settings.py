@@ -9,3 +9,6 @@ SCREEN_HEIGHT = 592
 HOST = "localhost"
 PORT = 5678
 DATA_CAP = 2048 * 1
+
+# FILE PATHS
+SCREENSHOT_PATH = "screenshots"

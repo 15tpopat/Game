@@ -1,9 +1,22 @@
 import pygame
 import sys
 
+from os import listdir
+
 from settings import *
 
+def takeScreenshot(screen: pygame.Surface) -> None:
+    """ This function will take a screenshot of the game every time it is run
+        and will be used to help track the development of the game. """
+
+    # Get the number to name the screenshot by adding 1 to the number of existing screenshots
+    screenshotNumber = len(listdir(SCREENSHOT_PATH)) + 1
+
+    # Save a snapshot of the screen to the screenshot directory
+    pygame.image.save(screen, f"{SCREENSHOT_PATH}/screenshot #{screenshotNumber}.jpg")
+
 def main() -> None:
+    """ This function contains the main game loop. """
     # Start game loop
     while True:
         # Event processing
@@ -30,6 +43,9 @@ if __name__ == "__main__":
     # Initiate the screen with the given width and height
     screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
     screenRect = screen.get_rect()
+
+    # Take a screenshot every time the game is run
+    takeScreenshot(screen)
 
     # Run the main loop
     main()
