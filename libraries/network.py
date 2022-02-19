@@ -7,6 +7,7 @@ from player import Player
 
 class Network:
     """ This class represents the the client interface to the server. """
+
     def __init__(self) -> object:
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.host = HOST
