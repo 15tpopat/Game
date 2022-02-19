@@ -2,7 +2,7 @@ import socket
 from pickle import dumps as pDumps, loads as pLoads
 
 from settings import *
-from utils import *
+from logging import *
 from player import Player
 
 class Network:
@@ -21,7 +21,7 @@ class Network:
             return pLoads(self.socket.recv(DATA_SIZE))
         except socket.error as e:
             errorMessage("An error occurred whilst trying to connect to the server", end=":")
-            errorMessage(e)
+            errorMessage(str(e))
             infoMessage("The server is most likely not started")
 
     def send(self, data: dict) -> dict:
