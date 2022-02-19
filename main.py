@@ -65,15 +65,7 @@ if __name__ == "__main__":
     network = Network()
 
     # Setup necessary variables
-    player = Player(
-        "Sasuke",       # Name
-        80.0,           # Health
-        60.0,           # Chakra
-        90,             # Maximum Chakra
-        0.2,            # Recharge Rate
-        "lightning",    # Primary Affinity
-        "fire",         # Secondary Affinity
-    )
+
 
     # Run the main loop
     main()
