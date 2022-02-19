@@ -12,7 +12,7 @@ def colourPrint(text: str, colour: str = "reset", end: str = "\n"):
     print(eval("Fore.{}".format(colour.upper())) + text, end=end)
     print("\033[39m", end="")
 
-def infoMessage(text: str, start: str = "", colour: str = "cyan"):
+def infoMessage(text: str, start: str = "", colour: str = "blue"):
     caller = getframeinfo(stack()[1][0])
     fileName = caller.filename[caller.filename.rindex(ROOT_FOLDER):]
     colourPrint("{start}{filename}:{lineNumber}\t\t{text}".format(
