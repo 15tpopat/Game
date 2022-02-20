@@ -7,6 +7,31 @@ from settings import *
 from player import Player
 from libraries.network import Network
 
+class Crosshair:
+    """ This class represents the crosshair. """
+
+    def __init__(self) -> object:
+        self.x = SCREEN_WIDTH // 2
+        self.y = SCREEN_HEIGHT // 2
+        self.rect = pygame.Rect(self.x, self.y, CROSSHAIR_WIDTH, CROSSHAIR_HEIGHT)
+
+    def update(self) -> None:
+        # Retrieve the position of the mouse
+        pos = pygame.mouse.get_pos()
+
+        # Set the position of the crosshair to the mouse
+        self.rect.x = pos[0] - (CROSSHAIR_WIDTH // 2)
+        self.rect.y = pos[1] - (CROSSHAIR_HEIGHT // 2)
+
+def loadImage(name: str) -> pygame.Surface:
+    image = pygame.image.load(f"{IMAGES_PATH}/{name}.png").convert_alpha()
+    image.set_colorkey((0, 0, 0))
+    return image
+
+def scale(image: pygame.Surface, size: tuple) -> pygame.Surface:
+    image = pygame.transform.scale(image, size)
+    return image
+
 def takeScreenshot(screen: pygame.Surface) -> None:
     """ This function will take a screenshot of the game every time the function
         is called and will be used to help track the development of the game. """
@@ -17,7 +42,7 @@ def takeScreenshot(screen: pygame.Surface) -> None:
     # Save a snapshot of the screen to the screenshot directory
     pygame.image.save(screen, f"{SCREENSHOT_PATH}/screenshot #{screenshotNumber}.jpg")
 
-def updateScreen(player: Player, playerList: dict) -> None:
+def updateScreen(player: Player, playerList: dict, crosshair: Crosshair) -> None:
     """ This function updates the screen by clearing the screen and drawing the
         sprites every time the function is called. """
 
@@ -29,9 +54,12 @@ def updateScreen(player: Player, playerList: dict) -> None:
     for player in playerList.values():
         player.draw(screen)
 
+    # Draw the crosshair on the screen
+    screen.blit(images["crosshair"], crosshair.rect)
+
     pygame.display.update()
 
-def main(playerList: dict) -> None:
+def main(playerList: dict, crosshair: Crosshair) -> None:
     """ This function contains the main game loop. """
     # Start game loop
     while True:
@@ -54,11 +82,12 @@ def main(playerList: dict) -> None:
         if data:
             playerList = data
 
-        # Check if the player wants to move and move it
+        # Update the positions of the player and crosshair objects
         player.move()
+        crosshair.update()
 
         # Update the screen
-        updateScreen(player, playerList)
+        updateScreen(player, playerList, crosshair)
 
         # Limit the screen updates to FPS frames per second
         clock.tick(FPS)
@@ -75,12 +104,22 @@ if __name__ == "__main__":
     screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
     screenRect = screen.get_rect()
 
+    # Ensure that the mouse is invisible whilst still moving the crosshair
+    pygame.mouse.set_cursor((8,8),(0,0),(0,0,0,0,0,0,0,0),(0,0,0,0,0,0,0,0))
+
     # Initiate the connection to the server and retrieve the player
     network = Network()
     player = network.player
 
-    # Setup necessary variables
+    # Setup necessary images, objects and variables
+    crosshairImage = scale(loadImage("crosshair"), (CROSSHAIR_WIDTH, CROSSHAIR_HEIGHT))
+
+    crosshair = Crosshair()
+
     playerList = {}
+    images = {
+        "crosshair": crosshairImage
+    }
 
     # Run the main loop
-    main(playerList)
+    main(playerList, crosshair)
