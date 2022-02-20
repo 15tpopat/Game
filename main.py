@@ -36,8 +36,11 @@ def takeScreenshot(screen: pygame.Surface) -> None:
     """ This function will take a screenshot of the game every time the function
         is called and will be used to help track the development of the game. """
 
+    # Create an anonymous function to stop hidden files being counted
+    discardHiddenFiles = lambda files : [file for file in files if not file.startswith(".")]
+
     # Get the number to name the screenshot by adding 1 to the number of existing screenshots
-    screenshotNumber = len(listdir(SCREENSHOT_PATH)) + 1
+    screenshotNumber = len(discardHiddenFiles(listdir(SCREENSHOT_PATH))) + 1
 
     # Save a snapshot of the screen to the screenshot directory
     pygame.image.save(screen, f"{SCREENSHOT_PATH}/screenshot #{screenshotNumber}.jpg")
