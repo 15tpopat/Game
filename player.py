@@ -59,4 +59,4 @@ class Player:
 
     def updatePosition(self) -> None:
         # Update the position attribute used to draw the sprite
-        self.rect = (self.x, self.y, self.width, self.height)
+        self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
