@@ -24,11 +24,16 @@ class Crosshair:
         self.rect.y = pos[1] - (CROSSHAIR_HEIGHT // 2)
 
 def loadImage(name: str) -> pygame.Surface:
+    """ Load the image and convert it into the same pixel format as the one used
+        by pygame so that it can be drawn faster. """
+
     image = pygame.image.load(f"{IMAGES_PATH}/{name}.png").convert_alpha()
     image.set_colorkey((0, 0, 0))
     return image
 
 def scale(image: pygame.Surface, size: tuple) -> pygame.Surface:
+    """ Scale the image given to the desired resolution specified. """
+
     image = pygame.transform.scale(image, size)
     return image
 
