@@ -62,22 +62,24 @@ class Server:
             try:
                 # Receive the updated state of the player
                 data = pLoads(conn.recv(DATA_SIZE))
-                players[playerIndex] = data
+                players[playerIndex] = data["player"]
 
-                listPlayers = {}
+                playerList = {}
 
-                # If the player has not disconnected...
-                if not data:
+                # If the player is connected...
+                if data:
                     # Send the states of all the players bar the player who sent the data
                     for player_idx in players:
                         player = players[player_idx]
                         if player != currentPlayer:
-                            listPlayers[player_idx] = player
+                            playerList[player_idx] = player
                 else:
                     infoMessage(f"{clientAddress} has disconnected", colour="yellow")
                     connected = False
+                    conn.sendall(pDumps([None]))
 
-                conn.sendall(pDumps(listPlayers))
+                conn.sendall(pDumps(playerList))
+
             except Exception as e:
                 infoMessage(f"{clientAddress} has disconnected", colour="yellow")
                 connected = False
