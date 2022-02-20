@@ -18,6 +18,9 @@ def takeScreenshot(screen: pygame.Surface) -> None:
     pygame.image.save(screen, f"{SCREENSHOT_PATH}/screenshot #{screenshotNumber}.jpg")
 
 def updateScreen(player: Player) -> None:
+    """ This function updates the screen by clearing the screen and drawing the
+        sprites every time the function is called. """
+
     # Set the background colour
     screen.fill(BACKGROUND_COLOUR)
 
@@ -62,7 +65,9 @@ if __name__ == "__main__":
     screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
     screenRect = screen.get_rect()
 
+    # Initiate the connection to the server and retrieve the player
     network = Network()
+    player = network.player
 
     # Setup necessary variables
 
