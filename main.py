@@ -49,8 +49,8 @@ def updateScreen(player: Player, playerList: dict, crosshair: Crosshair) -> None
     """ This function updates the screen by clearing the screen and drawing the
         sprites every time the function is called. """
 
-    # Set the background colour
-    screen.fill(BACKGROUND_COLOUR)
+    # Set the background image
+    screen.blit(images["background"], screenRect)
 
     # Draw the players on the screen
     player.draw(screen)
@@ -115,12 +115,14 @@ if __name__ == "__main__":
     player = network.player
 
     # Setup necessary images, objects and variables
+    backgroundImage = scale(loadImage("background"), (SCREEN_WIDTH, SCREEN_HEIGHT))
     crosshairImage = scale(loadImage("crosshair"), (CROSSHAIR_WIDTH, CROSSHAIR_HEIGHT))
 
     crosshair = Crosshair()
 
     playerList = {}
     images = {
+        "background": backgroundImage,
         "crosshair": crosshairImage
     }
 
