@@ -17,11 +17,11 @@ class Crosshair:
 
     def update(self) -> None:
         # Retrieve the position of the mouse
-        pos = pygame.mouse.get_pos()
+        xPosition, yPosition = pygame.mouse.get_pos()
 
         # Set the position of the crosshair to the mouse
-        self.rect.x = pos[0] - (CROSSHAIR_WIDTH // 2)
-        self.rect.y = pos[1] - (CROSSHAIR_HEIGHT // 2)
+        self.rect.x = xPosition - (CROSSHAIR_WIDTH // 2)
+        self.rect.y = yPosition - (CROSSHAIR_HEIGHT // 2)
 
 def loadImage(name: str) -> pygame.Surface:
     """ Load the image and convert it into the same pixel format as the one used
