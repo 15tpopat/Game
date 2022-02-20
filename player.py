@@ -37,11 +37,11 @@ class Player:
         self.colour = (randint(0, 255), randint(0, 128), randint(0, 255)) # Using 128 on green ensures the colour chosen isn't white
         self.step = PLAYER_SPEED # The amount of units to increase the x, y positions by per frame (speed)
 
-    def draw(self, screen: pygame.Surface):
+    def draw(self, screen: pygame.Surface) -> None:
         # Draw the sprite onto the screen
         pygame.draw.rect(screen, self.colour, self.rect)
 
-    def move(self):
+    def move(self) -> None:
         # Get a dictionary of what keys are pressed
         keysPressed = pygame.key.get_pressed()
 
@@ -57,6 +57,6 @@ class Player:
 
         self.updatePosition()
 
-    def updatePosition(self):
+    def updatePosition(self) -> None:
         # Update the position attribute used to draw the sprite
         self.rect = (self.x, self.y, self.width, self.height)
