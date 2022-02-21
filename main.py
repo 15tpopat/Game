@@ -1,11 +1,48 @@
 import pygame
 import sys
 
+from math import sin, cos, atan2
 from os import listdir
 
 from settings import *
 from player import Player
 from libraries.network import Network
+
+class Jutsu:
+    """ This class represents the jutsu. """
+
+    def __init__(
+        self,
+        playerRect: pygame.Rect,
+        width: int,
+        height: int,
+        speed: int
+    ) -> object:
+        # Get the position of the mouse
+        mousePosition = pygame.mouse.get_pos()
+
+        # Set the technical jutsu attributes
+        self.x = playerRect.center[0]
+        self.y = playerRect.center[1]
+        self.width = width
+        self.height = height
+        self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
+        self.colour = JUTSU_COLOUR
+
+        # Calculate the angle and trajectory of the jutsu
+        self.speed = speed
+        self.angle = atan2(self.y - mousePosition[1], self.x - mousePosition[0])
+        self.velX = cos(self.angle) * self.speed
+        self.velY = sin(self.angle) * self.speed
+
+    def draw(self, screen: pygame.Surface) -> None:
+        # Draw the sprite onto the screen
+        pygame.draw.rect(screen, self.colour, self.rect)
+
+    def update(self) -> None:
+        # Update the position attributes used to draw the sprite
+        self.rect.x -= int(self.velX)
+        self.rect.y -= int(self.velY)
 
 class Crosshair:
     """ This class represents the crosshair. """
@@ -50,24 +87,26 @@ def takeScreenshot(screen: pygame.Surface) -> None:
     # Save a snapshot of the screen to the screenshot directory
     pygame.image.save(screen, f"{SCREENSHOT_PATH}/screenshot #{screenshotNumber}.jpg")
 
-def updateScreen(player: Player, playerList: dict, crosshair: Crosshair) -> None:
+def updateScreen(crosshair: Crosshair, player: Player, playerList: dict, jutsuList: list) -> None:
     """ This function updates the screen by clearing the screen and drawing the
         sprites every time the function is called. """
 
     # Set the background image
     screen.blit(images["background"], screenRect)
 
-    # Draw the players on the screen
-    player.draw(screen)
-    for player in playerList.values():
-        player.draw(screen)
-
     # Draw the crosshair on the screen
     screen.blit(images["crosshair"], crosshair.rect)
 
+    # Draw the players and jutsu on the screen
+    player.draw(screen)
+    for player in playerList.values():
+        player.draw(screen)
+    for jutsu in jutsuList:
+        jutsu.draw(screen)
+
     pygame.display.update()
 
-def main(playerList: dict, crosshair: Crosshair) -> None:
+def main(crosshair: Crosshair, playerList: dict, jutsuList: list) -> None:
     """ This function contains the main game loop. """
     # Start game loop
     while True:
@@ -82,6 +121,10 @@ def main(playerList: dict, crosshair: Crosshair) -> None:
             elif event.type == pygame.KEYUP:
                 if event.key == pygame.K_EQUALS:
                     takeScreenshot(screen)
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    jutsu = Jutsu(player.rect, 10, 10, 5)
+                    jutsuList.append(jutsu)
 
         # Send the state of the player
         data = network.send({ "player": player })
@@ -90,12 +133,20 @@ def main(playerList: dict, crosshair: Crosshair) -> None:
         if data:
             playerList = data
 
-        # Update the positions of the player and crosshair objects
+        # Update the states of the player, crosshair and jutsu objects
         player.move()
         crosshair.update()
 
+        for jutsu in jutsuList:
+            # Remove the jutsu if it goes off the screen
+            if (jutsu.rect.x < 0 or jutsu.rect.x > SCREEN_WIDTH) or \
+               (jutsu.rect.y < 0 or jutsu.rect.y > SCREEN_HEIGHT):
+                jutsuList.remove(jutsu)
+            else:
+                jutsu.update()
+
         # Update the screen
-        updateScreen(player, playerList, crosshair)
+        updateScreen(crosshair, player, playerList, jutsuList)
 
         # Limit the screen updates to FPS frames per second
         clock.tick(FPS)
@@ -126,10 +177,11 @@ if __name__ == "__main__":
     crosshair = Crosshair()
 
     playerList = {}
+    jutsuList = []
     images = {
         "background": backgroundImage,
         "crosshair": crosshairImage
     }
 
     # Run the main loop
-    main(playerList, crosshair)
+    main(crosshair, playerList, jutsuList)

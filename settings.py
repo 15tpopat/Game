@@ -24,3 +24,7 @@ PLAYER_SPAWN_GAP = 0.1 # Minimum distance from boundary via multiplier of screen
 # CROSSHAIR SETTINGS
 CROSSHAIR_WIDTH = 40
 CROSSHAIR_HEIGHT = 40
+
+# JUTSU SETTINGS
+JUTSU_SPEED = 5
+JUTSU_COLOUR = (0, 0, 255)
