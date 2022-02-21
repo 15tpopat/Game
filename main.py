@@ -1,7 +1,6 @@
 import pygame
 import sys
 
-from math import sin, cos, atan2
 from os import listdir
 
 from settings import *
@@ -16,11 +15,8 @@ class Jutsu:
         playerRect: pygame.Rect,
         width: int,
         height: int,
-        speed: int
+        mousePosition: tuple
     ) -> object:
-        # Get the position of the mouse
-        mousePosition = pygame.mouse.get_pos()
-
         # Set the technical jutsu attributes
         self.x = playerRect.center[0]
         self.y = playerRect.center[1]
@@ -29,11 +25,10 @@ class Jutsu:
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
         self.colour = JUTSU_COLOUR
 
-        # Calculate the angle and trajectory of the jutsu
-        self.speed = speed
-        self.angle = atan2(self.y - mousePosition[1], self.x - mousePosition[0])
-        self.velX = cos(self.angle) * self.speed
-        self.velY = sin(self.angle) * self.speed
+        # Calculate the trajectory of the jutsu
+        self.playerPosition = pygame.math.Vector2(player.rect.center) # duplicate # start position in start of canon
+        distance = mousePosition - self.playerPosition
+        self.velocity = distance.normalize() * JUTSU_SPEED
 
     def draw(self, screen: pygame.Surface) -> None:
         # Draw the sprite onto the screen
@@ -41,8 +36,9 @@ class Jutsu:
 
     def update(self) -> None:
         # Update the position attributes used to draw the sprite
-        self.rect.x -= int(self.velX)
-        self.rect.y -= int(self.velY)
+        self.playerPosition += self.velocity
+        self.rect.x = self.playerPosition.x
+        self.rect.y = self.playerPosition.y
 
 class Crosshair:
     """ This class represents the crosshair. """
@@ -123,7 +119,7 @@ def main(crosshair: Crosshair, playerList: dict, jutsuList: list) -> None:
                     takeScreenshot(screen)
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
-                    jutsu = Jutsu(player.rect, 10, 10, 5)
+                    jutsu = Jutsu(player.rect, 10, 10, event.pos)
                     jutsuList.append(jutsu)
 
         # Send the state of the player
