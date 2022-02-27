@@ -12,7 +12,7 @@ def colourPrint(text: str, colour: str = "reset", end: str = "\n"):
     print(eval("Fore.{}".format(colour.upper())) + text, end=end)
     print("\033[39m", end="")
 
-def infoMessage(text: str, start: str = "", colour: str = "blue"):
+def infoMessage(text: str, start: str = "", colour: str = "blue", end: str = "\n"):
     caller = getframeinfo(stack()[1][0])
     fileName = caller.filename[caller.filename.rindex(ROOT_FOLDER):]
     colourPrint("{start}{filename}:{lineNumber}\t\t{text}".format(
@@ -20,9 +20,10 @@ def infoMessage(text: str, start: str = "", colour: str = "blue"):
                 filename=fileName,
                 lineNumber=caller.lineno,
                 text=text + "."),
-                colour=colour)
+                colour=colour,
+                end=end)
 
-def debugMessage(text: str, start: str = "", colour: str = "magneta"):
+def debugMessage(text: str, start: str = "", colour: str = "magneta", end: str = "\n"):
     caller = getframeinfo(stack()[1][0])
     fileName = caller.filename[caller.filename.rindex(ROOT_FOLDER):]
     colourPrint("{start}{filename}:{lineNumber}\t\t{text}".format(
@@ -30,13 +31,15 @@ def debugMessage(text: str, start: str = "", colour: str = "magneta"):
                 filename=fileName,
                 lineNumber=caller.lineno,
                 text=text + "..."),
-                colour=colour)
+                colour=colour,
+                end=end)
 
-def errorMessage(text: str, colour: str = "red"):
+def errorMessage(text: str, colour: str = "red", end: str = "\n"):
     caller = getframeinfo(stack()[1][0])
     fileName = caller.filename[caller.filename.rindex(ROOT_FOLDER):]
     colourPrint("{filename}:{lineNumber}\t\t{text}".format(
                 filename=fileName,
                 lineNumber=caller.lineno,
                 text=text + "!"),
-                colour=colour)
+                colour=colour,
+                end=end)
