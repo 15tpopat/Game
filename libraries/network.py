@@ -1,4 +1,6 @@
 import socket
+import sys
+
 from pickle import dumps as pDumps, loads as pLoads
 
 from settings import *
@@ -23,6 +25,7 @@ class Network:
             errorMessage("An error occurred whilst trying to connect to the server", end=":")
             errorMessage(str(e))
             infoMessage("The server is most likely not started")
+            sys.exit()
 
     def send(self, data: dict) -> dict:
         self.socket.send(pDumps(data))
