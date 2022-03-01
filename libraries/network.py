@@ -22,8 +22,8 @@ class Network:
             self.socket.connect(self.addr)
             return pLoads(self.socket.recv(DATA_SIZE))
         except socket.error as e:
-            errorMessage("An error occurred whilst trying to connect to the server", end=":")
-            errorMessage(str(e))
+            errorMessage("An error occurred whilst trying to connect to the server", end=": ")
+            errorMessage(str(e), prefix=False)
             infoMessage("The server is most likely not started")
             sys.exit()
 

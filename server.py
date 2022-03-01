@@ -23,8 +23,8 @@ class Server:
         try:
             self.socket.bind(self.addr)
         except Exception as e:
-            errorMessage("Error trying to bind server")
-            errorMessage(str(e))
+            errorMessage("Error trying to bind server", end=": ")
+            errorMessage(str(e), prefix=False)
 
         self.socket.listen(MAXIMUM_NUM_CONNECTIONS)
         infoMessage(f"Listening for connections on {self.port}")
