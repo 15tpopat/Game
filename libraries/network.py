@@ -5,7 +5,6 @@ from pickle import dumps as pDumps, loads as pLoads
 
 from settings import *
 from logging import *
-from player import Player
 
 class Network:
     """ This class represents the the client interface to the server. """
@@ -17,7 +16,7 @@ class Network:
         self.addr = (self.host, self.port)
         self.player = self.connect()
 
-    def connect(self) -> Player:
+    def connect(self) -> object:
         try:
             self.socket.connect(self.addr)
             return pLoads(self.socket.recv(DATA_SIZE))
