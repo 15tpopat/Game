@@ -82,6 +82,8 @@ class Server:
 
             except Exception as e:
                 infoMessage(f"{clientAddress} has disconnected", colour="yellow")
+                errorMessage(f"{clientAddress} has disconnected", end=": ")
+                errorMessage(str(e), prefix=False)
                 connected = False
 
         infoMessage(f"Ended threaded tasks for client: {clientAddress}")
