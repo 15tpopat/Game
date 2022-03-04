@@ -15,6 +15,7 @@ class Jutsu:
         playerRect: pygame.Rect,
         width: int,
         height: int,
+        jutsuID: int,
         mousePosition: tuple
     ) -> object:
         # Set the technical jutsu attributes
@@ -24,6 +25,9 @@ class Jutsu:
         self.height = height
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
         self.colour = JUTSU_COLOUR
+
+        # Set the network jutsu attributes
+        self.jutsuID = jutsuID
 
         # Calculate the trajectory of the jutsu
         self.playerPosition = pygame.math.Vector2(player.rect.center) # duplicate # start position in start of canon
@@ -102,8 +106,9 @@ def updateScreen(crosshair: Crosshair, player: Player, playerList: dict, jutsuLi
 
     pygame.display.update()
 
-def main(crosshair: Crosshair, playerList: dict, jutsuList: list) -> None:
+def main(crosshair: Crosshair, playerList: dict, jutsuList: list, jutsuID: int) -> None:
     """ This function contains the main game loop. """
+
     # Start game loop
     while True:
         # Event processing
@@ -119,8 +124,9 @@ def main(crosshair: Crosshair, playerList: dict, jutsuList: list) -> None:
                     takeScreenshot(screen)
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
-                    jutsu = Jutsu(player.rect, 10, 10, event.pos)
-                    jutsuList.append(jutsu)
+                    jutsu = Jutsu(player.rect, 10, 10, jutsuID, event.pos)
+                    jutsuList[jutsuID] = jutsu
+                    jutsuID += 1
 
         # Send the state of the player
         data = network.send({ "player": player })
@@ -133,11 +139,11 @@ def main(crosshair: Crosshair, playerList: dict, jutsuList: list) -> None:
         player.move()
         crosshair.update()
 
-        for jutsu in jutsuList:
+        for jutsu in jutsuList.values():
             # Remove the jutsu if it goes off the screen
             if (jutsu.rect.x < 0 or jutsu.rect.x > SCREEN_WIDTH) or \
                (jutsu.rect.y < 0 or jutsu.rect.y > SCREEN_HEIGHT):
-                jutsuList.remove(jutsu)
+                pass
             else:
                 jutsu.update()
 
@@ -172,12 +178,13 @@ if __name__ == "__main__":
 
     crosshair = Crosshair()
 
+    jutsuID = 0
     playerList = {}
-    jutsuList = []
+    jutsuList = {}
     images = {
         "background": backgroundImage,
         "crosshair": crosshairImage
     }
 
     # Run the main loop
-    main(crosshair, playerList, jutsuList)
+    main(crosshair, playerList, jutsuList, jutsuID)
