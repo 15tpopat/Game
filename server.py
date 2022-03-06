@@ -64,15 +64,16 @@ class Server:
                 data = pLoads(conn.recv(DATA_SIZE))
                 players[playerIndex] = data["player"]
 
+                # Reset the player list
                 playerList = {}
 
                 # If the player is connected...
                 if data:
                     # Send the states of all the players bar the player who sent the data
-                    for player_idx in players:
-                        player = players[player_idx]
+                    for playerKey in players:
+                        player = players[playerKey]
                         if player != currentPlayer:
-                            playerList[player_idx] = player
+                            playerList[playerKey] = player
                 else:
                     infoMessage(f"{clientAddress} has disconnected", colour="yellow")
                     connected = False
@@ -92,6 +93,8 @@ class Server:
         conn.close()
 
 def main() -> None:
+    """ This function contains the server initialisation and start code. """
+
     server = Server()
     server.start()
 
