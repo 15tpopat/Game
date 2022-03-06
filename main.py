@@ -2,6 +2,7 @@ import pygame
 import sys
 
 from os import listdir
+from random import randint
 
 from settings import *
 from player import Player
@@ -106,7 +107,7 @@ def updateScreen(crosshair: Crosshair, player: Player, playerList: dict, jutsuLi
 
     pygame.display.update()
 
-def main(crosshair: Crosshair, playerList: dict, jutsuList: list, jutsuID: int) -> None:
+def main(crosshair: Crosshair, playerList: dict, jutsuList: list) -> None:
     """ This function contains the main game loop. """
 
     # Start game loop
@@ -124,9 +125,9 @@ def main(crosshair: Crosshair, playerList: dict, jutsuList: list, jutsuID: int) 
                     takeScreenshot(screen)
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
+                    jutsuID = randint(0, JUTSU_ID_RANGE)
                     jutsu = Jutsu(player.rect, 10, 10, jutsuID, event.pos)
                     jutsuList[jutsuID] = jutsu
-                    jutsuID += 1
 
         # Send the state of the player
         data = network.send({ "player": player, "jutsu": jutsuList })
@@ -178,7 +179,6 @@ if __name__ == "__main__":
 
     crosshair = Crosshair()
 
-    jutsuID = 0
     playerList = {}
     jutsuList = {}
     images = {
@@ -187,4 +187,4 @@ if __name__ == "__main__":
     }
 
     # Run the main loop
-    main(crosshair, playerList, jutsuList, jutsuID)
+    main(crosshair, playerList, jutsuList)
