@@ -129,11 +129,11 @@ def main(crosshair: Crosshair, playerList: dict, jutsuList: list, jutsuID: int) 
                     jutsuID += 1
 
         # Send the state of the player
-        data = network.send({ "player": player })
+        data = network.send({ "player": player, "jutsu": jutsuList })
 
         # If we receive data back...
         if data:
-            playerList = data
+            playerList, jutsuList = data
 
         # Update the states of the player, crosshair and jutsu objects
         player.move()
