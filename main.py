@@ -123,6 +123,8 @@ def main(crosshair: Crosshair, playerList: dict, jutsuList: list) -> None:
             elif event.type == pygame.KEYUP:
                 if event.key == pygame.K_EQUALS:
                     takeScreenshot(screen)
+
+            # Launch a jutsu when the left mouse button is pressed down
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     jutsuID = randint(0, JUTSU_ID_RANGE)
