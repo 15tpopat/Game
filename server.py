@@ -8,6 +8,7 @@ from logging import *
 from player import Player
 
 players = {}
+jutsu = {}
 
 class Server:
     """ This class represents the server. """
@@ -39,6 +40,8 @@ class Server:
             self.playerIndex += 1
 
     def clientThread(self, conn: socket.socket, clientAddress: tuple, playerIndex: int) -> None:
+        global jutsu
+
         # Create the player and add them to the list containing all players
         player = Player(
             "Sasuke",       # Name
@@ -74,12 +77,17 @@ class Server:
                         player = players[playerKey]
                         if player != currentPlayer:
                             playerList[playerKey] = player
+
+                    # Send the states of all the jutsu
+                    jutsuList = data["jutsu"]
+                    for jutsuObject in jutsuList.values():
+                        jutsu[jutsuObject.jutsuID] = jutsuObject
                 else:
                     infoMessage(f"{clientAddress} has disconnected", colour="yellow")
                     connected = False
-                    conn.sendall(pDumps([None]))
+                    conn.sendall(pDumps([None, None]))
 
-                conn.sendall(pDumps(playerList))
+                conn.sendall(pDumps([playerList, jutsu]))
 
             except Exception as e:
                 errorMessage(f"{clientAddress} has disconnected", end=": ")
