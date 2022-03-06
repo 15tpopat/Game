@@ -82,7 +82,13 @@ class Server:
                     # Send the states of all the jutsu
                     jutsuList = data["jutsu"]
                     for jutsuObject in jutsuList.values():
-                        jutsu[jutsuObject.jutsuID] = jutsuObject
+                        if jutsuObject.remove:
+                            try:
+                                del jutsu[jutsuObject.jutsuID]
+                            except KeyError:
+                                pass
+                        else:
+                            jutsu[jutsuObject.jutsuID] = jutsuObject
                 else:
                     infoMessage(f"{clientAddress} has disconnected", colour="yellow")
                     connected = False

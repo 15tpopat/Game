@@ -29,6 +29,7 @@ class Jutsu:
 
         # Set the network jutsu attributes
         self.jutsuID = jutsuID
+        self.remove = False
 
         # Calculate the trajectory of the jutsu
         self.playerPosition = pygame.math.Vector2(player.rect.center) # duplicate # start position in start of canon
@@ -146,7 +147,7 @@ def main(crosshair: Crosshair, playerList: dict, jutsuList: list) -> None:
             # Remove the jutsu if it goes off the screen
             if (jutsuObject.rect.x < 0 or jutsuObject.rect.x > SCREEN_WIDTH) or \
                (jutsuObject.rect.y < 0 or jutsuObject.rect.y > SCREEN_HEIGHT):
-                pass
+                jutsuObject.remove = True
             else:
                 jutsuObject.update()
 
