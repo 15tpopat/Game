@@ -6,6 +6,7 @@ from threading import Thread
 from settings import *
 from logging import *
 from player import Player
+from main import Jutsu
 
 players = {}
 jutsu = {}
