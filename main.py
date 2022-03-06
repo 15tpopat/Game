@@ -101,8 +101,8 @@ def updateScreen(crosshair: Crosshair, player: Player, playerList: dict, jutsuLi
     player.draw(screen)
     for player in playerList.values():
         player.draw(screen)
-    for jutsu in jutsuList:
-        jutsu.draw(screen)
+    for jutsuObject in jutsuList.values():
+        jutsuObject.draw(screen)
 
     pygame.display.update()
 
@@ -139,13 +139,13 @@ def main(crosshair: Crosshair, playerList: dict, jutsuList: list, jutsuID: int) 
         player.move()
         crosshair.update()
 
-        for jutsu in jutsuList.values():
+        for jutsuObject in jutsuList.values():
             # Remove the jutsu if it goes off the screen
-            if (jutsu.rect.x < 0 or jutsu.rect.x > SCREEN_WIDTH) or \
-               (jutsu.rect.y < 0 or jutsu.rect.y > SCREEN_HEIGHT):
+            if (jutsuObject.rect.x < 0 or jutsuObject.rect.x > SCREEN_WIDTH) or \
+               (jutsuObject.rect.y < 0 or jutsuObject.rect.y > SCREEN_HEIGHT):
                 pass
             else:
-                jutsu.update()
+                jutsuObject.update()
 
         # Update the screen
         updateScreen(crosshair, player, playerList, jutsuList)
