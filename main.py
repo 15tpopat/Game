@@ -64,8 +64,8 @@ def updateScreen(crosshair: Crosshair, player: Player, playerList: dict, jutsuLi
 
     # Draw the players and jutsu on the screen
     player.draw(screen)
-    for player in playerList.values():
-        player.draw(screen)
+    for playerObject in playerList.values():
+        playerObject.draw(screen)
     for jutsuObject in jutsuList.values():
         jutsuObject.draw(screen)
 
