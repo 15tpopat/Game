@@ -28,7 +28,7 @@ class Jutsu:
         self.remove = False
 
         # Calculate the trajectory of the jutsu
-        self.playerPosition = pygame.math.Vector2(player.rect.center) # duplicate # start position in start of canon
+        self.playerPosition = pygame.math.Vector2(player.rect.center)
         distance = mousePosition - self.playerPosition
         self.velocity = distance.normalize() * JUTSU_SPEED
 
