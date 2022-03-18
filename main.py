@@ -93,11 +93,30 @@ def main(crosshair: Crosshair, activatedJutsu: str, playerList: dict, jutsuList:
                 # Allow the player to mould the chakra into a jutsu
                 jutsuKey = player.mould(event, jutsuIndex)
 
+                # If the player has finished moulding...
+                if jutsuKey is not None:
+                    # Change the jutsu
+                    activatedJutsu = jutsuKey
+
             # Launch a jutsu when the left mouse button is pressed down
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     jutsuID = randint(0, JUTSU_ID_RANGE)
+
                     jutsu = Jutsu(player.rect, 10, 10, jutsuID, event.pos)
+                    if activatedJutsu == "fireball_jutsu":
+                        jutsu = FireballJutsu(player.rect, 10, 10, jutsuID, event.pos)
+                    elif activatedJutsu == "mud_wall":
+                        jutsu = MudWall(player.rect, 10, 10, jutsuID, event.pos)
+                    elif activatedJutsu == "gale_palm":
+                        jutsu = GalePalm(player.rect, 10, 10, jutsuID, event.pos)
+                    elif activatedJutsu == "mist_barrier":
+                        jutsu = MistBarrier(player.rect, 10, 10, jutsuID, event.pos)
+                    elif activatedJutsu == "limelight_minor":
+                        jutsu = Limelight(player.rect, 10, 10, jutsuID, event.pos)
+                    else:
+                        pass
+
                     jutsuList[jutsuID] = jutsu
 
         # Send the state of the player
@@ -153,6 +172,7 @@ if __name__ == "__main__":
 
     crosshair = Crosshair()
 
+    activatedJutsu = DEFAULT_ACTIVATED_JUTSU
     playerList = {}
     jutsuList = {}
     images = {
