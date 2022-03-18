@@ -108,8 +108,8 @@ def main(crosshair: Crosshair, playerList: dict, jutsuList: list) -> None:
 
         for jutsuObject in jutsuList.values():
             # Remove the jutsu if it goes off the screen
-            if (jutsuObject.rect.x < 0 or jutsuObject.rect.x > SCREEN_WIDTH) or \
-               (jutsuObject.rect.y < 0 or jutsuObject.rect.y > SCREEN_HEIGHT):
+            if (jutsuObject.rect.x < -screenWidthBorder or jutsuObject.rect.x > SCREEN_WIDTH + screenWidthBorder) or \
+               (jutsuObject.rect.y < -screenHeightBorder or jutsuObject.rect.y > SCREEN_HEIGHT + screenHeightBorder):
                 jutsuObject.remove = True
             else:
                 jutsuObject.update()
@@ -151,6 +151,10 @@ if __name__ == "__main__":
         "background": backgroundImage,
         "crosshair": crosshairImage
     }
+
+    # At what point beyond the border should the jutsu be deleted
+    screenWidthBorder = SCREEN_WIDTH * SCREEN_BORDER_MULTIPLIER
+    screenHeightBorder = SCREEN_HEIGHT * SCREEN_BORDER_MULTIPLIER
 
     # Run the main loop
     main(crosshair, playerList, jutsuList)
