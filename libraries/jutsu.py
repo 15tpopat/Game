@@ -1,7 +1,5 @@
 import pygame
 
-from random import randint
-
 from settings import *
 
 class Jutsu:
@@ -42,3 +40,73 @@ class Jutsu:
 
         # As center is a tuple, complete reassignment of attribute is required
         self.rect.center = self.jutsuPosition.x, self.jutsuPosition.y
+
+class FireballJutsu(Jutsu):
+    """ This class represents the fire-natured fireball jutsu. """
+
+    def __init__(
+        self,
+        playerRect: pygame.Rect,
+        width: int,
+        height: int,
+        jutsuID: int,
+        mousePosition: tuple
+    ) -> object:
+        # Initiate the jutsu super class
+        super().__init__(playerRect, width, height, jutsuID, mousePosition)
+
+class MudWall(Jutsu):
+    """ This class represents the earth-natured mud wall jutsu. """
+
+    def __init__(
+        self,
+        playerRect: pygame.Rect,
+        width: int,
+        height: int,
+        jutsuID: int,
+        mousePosition: tuple
+    ) -> object:
+        # Initiate the jutsu super class
+        super().__init__(playerRect, width, height, jutsuID, mousePosition)
+
+class GalePalm(Jutsu):
+    """ This class represents the wind-natured gale palm jutsu. """
+
+    def __init__(
+        self,
+        playerRect: pygame.Rect,
+        width: int,
+        height: int,
+        jutsuID: int,
+        mousePosition: tuple
+    ) -> object:
+        # Initiate the jutsu super class
+        super().__init__(playerRect, width, height, jutsuID, mousePosition)
+
+class MistBarrier(Jutsu):
+    """ This class represents the water-natured crimson mist barrier jutsu. """
+
+    def __init__(
+        self,
+        playerRect: pygame.Rect,
+        width: int,
+        height: int,
+        jutsuID: int,
+        mousePosition: tuple
+    ) -> object:
+        # Initiate the jutsu super class
+        super().__init__(playerRect, width, height, jutsuID, mousePosition)
+
+class Limelight(Jutsu):
+    """ This class represents the lightning-natured limelight minor jutsu. """
+
+    def __init__(
+        self,
+        playerRect: pygame.Rect,
+        width: int,
+        height: int,
+        jutsuID: int,
+        mousePosition: tuple
+    ) -> object:
+        # Initiate the jutsu super class
+        super().__init__(playerRect, width, height, jutsuID, mousePosition)
