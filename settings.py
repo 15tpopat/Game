@@ -7,8 +7,9 @@ SCREEN_HEIGHT = 594
 SCREEN_BORDER_MULTIPLIER = 0.1
 
 # FILE PATHS
-SCREENSHOT_PATH = "screenshots"
+DATABASE_PATH = "data/database.json"
 IMAGES_PATH = "data/images"
+SCREENSHOT_PATH = "screenshots"
 
 # NETWORK SETTINGS
 HOST = "localhost"

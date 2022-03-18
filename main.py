@@ -1,6 +1,7 @@
 import pygame
 import sys
 
+from json import dump as jDump, load as jLoad
 from os import listdir
 from random import randint
 
@@ -139,7 +140,10 @@ if __name__ == "__main__":
     network = Network()
     player = network.player
 
-    # Setup necessary images, objects and variables
+    # Setup necessary files, images, objects and variables
+    with open(DATABASE_PATH, "r") as file:
+        db = jLoad(file)
+
     backgroundImage = scale(loadImage("background"), (SCREEN_WIDTH, SCREEN_HEIGHT))
     crosshairImage = scale(loadImage("crosshair"), (CROSSHAIR_WIDTH, CROSSHAIR_HEIGHT))
 
