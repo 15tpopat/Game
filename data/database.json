@@ -1,0 +1,34 @@
+{
+    "jutsu": {
+      	"fireball_jutsu": {
+        		"name": "Fireball Jutsu",
+        		"nature": "fire",
+            "texts": ["fireball", "fireball jutsu"],
+        		"seals": ["snake", "ram", "monkey", "boar", "horse", "tiger"]
+      	},
+      	"mud_wall": {
+        		"name": "Mud Wall",
+        		"nature": "earth",
+            "texts": ["mud wall", "mud wall jutsu"],
+        		"seals": ["tiger", "hare", "boar", "dog"]
+      	},
+      	"gale_palm": {
+        		"name": "Gale Palm",
+        		"nature": "wind",
+            "texts": ["gale palm"],
+        		"seals": ["snake", "ram", "boar", "horse", "bird"]
+      	},
+      	"mist_barrier": {
+        		"name": "Crimson Mist Barrier",
+        		"nature": "water",
+            "texts": ["mist barrier", "crimson mist barrier"],
+        		"seals": ["dog", "snake", "ram"]
+      	},
+      	"chidori": {
+        		"name": "Chidori",
+        		"nature": "lightning",
+            "texts": ["chidori"],
+        		"seals": ["tiger", "hare", "boar", "boar", "horse", "tiger"]
+      	}
+    }
+}
