@@ -72,7 +72,7 @@ def updateScreen(crosshair: Crosshair, player: Player, playerList: dict, jutsuLi
 
     pygame.display.update()
 
-def main(crosshair: Crosshair, playerList: dict, jutsuList: list) -> None:
+def main(crosshair: Crosshair, activatedJutsu: str, playerList: dict, jutsuList: list, jutsuIndex: dict) -> None:
     """ This function contains the main game loop. """
 
     # Start game loop
@@ -84,10 +84,14 @@ def main(crosshair: Crosshair, playerList: dict, jutsuList: list) -> None:
                 pygame.quit()
                 sys.exit()
 
-            # Take a screenshot every time the equals button is pressed
+            # On key up...
             elif event.type == pygame.KEYUP:
+                # Take a screenshot every time the equals button is pressed
                 if event.key == pygame.K_EQUALS:
                     takeScreenshot(screen)
+
+                # Allow the player to mould the chakra into a jutsu
+                jutsuKey = player.mould(event, jutsuIndex)
 
             # Launch a jutsu when the left mouse button is pressed down
             elif event.type == pygame.MOUSEBUTTONDOWN:
@@ -160,5 +164,11 @@ if __name__ == "__main__":
     screenWidthBorder = SCREEN_WIDTH * SCREEN_BORDER_MULTIPLIER
     screenHeightBorder = SCREEN_HEIGHT * SCREEN_BORDER_MULTIPLIER
 
+    # Allows for quicker and easier retrieval of jutsu for the keyboard input method
+    jutsuIndex = {}
+    for jutsu in db["jutsu"]:
+        for text in db["jutsu"][jutsu]["texts"]:
+            jutsuIndex[text] = jutsu
+
     # Run the main loop
-    main(crosshair, playerList, jutsuList)
+    main(crosshair, activatedJutsu, playerList, jutsuList, jutsuIndex)

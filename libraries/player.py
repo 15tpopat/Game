@@ -1,6 +1,7 @@
 import pygame
 
 from random import randint
+from typing import Optional
 
 from settings import *
 
@@ -37,9 +38,33 @@ class Player:
         self.colour = (randint(0, 255), randint(0, 128), randint(0, 255)) # Using 128 on green ensures the colour chosen isn't grey
         self.step = PLAYER_SPEED # The amount of units to increase the x, y positions by per frame (speed)
 
+        # Set the attributes needed to change the activated jutsu
+        self.jutsuSequence = ""
+
     def draw(self, screen: pygame.Surface) -> None:
         # Draw the sprite onto the screen
         pygame.draw.rect(screen, self.colour, self.rect)
+
+    def mould(self, event: pygame.event.Event, jutsuIndex: dict) -> Optional[str]:
+        # Convert the keyboard key into unicode
+        letter = event.unicode.lower()
+
+        # Delete the most recently entered letter in the jutsu sequence
+        if event.key == pygame.K_BACKSPACE:
+            self.jutsuSequence = self.jutsuSequence[:-1]
+
+        # Append to the jutsu sequence or complete it
+        elif len(letter) != 0: # Ignore keyboard keys such as the shift button which have 0 characters
+            if ord(letter) == 13: # ENTER
+                return self.checkForJutsu(jutsuIndex)
+            elif ord(letter) == 32: # SPACE
+                self.jutsuSequence += letter
+            elif 96 < ord(letter) and ord(letter) < 123: # Ensures a <= letter <= z
+                self.jutsuSequence += letter
+            else:
+                pass # Ignore other irrelevant characters
+        else:
+            pass # Ignore other irrelevant characters
 
     def move(self) -> None:
         # Get a dictionary of what keys are pressed
