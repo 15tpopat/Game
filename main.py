@@ -8,7 +8,7 @@ from random import randint
 from settings import *
 from libraries.network import Network
 from libraries.player import Player
-from libraries.jutsu import Jutsu
+from libraries.jutsu import *
 
 class Crosshair:
     """ This class represents the crosshair. """

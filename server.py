@@ -6,7 +6,7 @@ from threading import Thread
 from settings import *
 from logging import *
 from libraries.player import Player
-from libraries.jutsu import Jutsu
+from libraries.jutsu import *
 
 players = {}
 jutsu = {}
