@@ -31,7 +31,7 @@ def infoMessage(text: str, start: str = "", colour: str = "blue", end: str = ".\
                 colour=colour,
                 end=end)
 
-def debugMessage(text: str, start: str = "", colour: str = "magneta", end: str = "...\n"):
+def debugMessage(text: str, start: str = "", colour: str = "magenta", end: str = "...\n"):
     caller = getframeinfo(stack()[1][0])
     filename = getFilename(caller)
     colourPrint("{start}{filename}:{lineNumber}\t\t{text}".format(
