@@ -52,20 +52,23 @@ def takeScreenshot(screen: pygame.Surface) -> None:
     # Save a snapshot of the screen to the screenshot directory
     pygame.image.save(screen, f"{SCREENSHOT_PATH}/screenshot #{screenshotNumber}.jpg")
 
-def updateScreen(crosshair: Crosshair, player: Player, playerList: dict, jutsuList: list) -> None:
+def updateScreen(crosshair: Crosshair, player: Player, playerList: dict, jutsuList: list, cameraX: int, cameraY: int) -> None:
     """ This function updates the screen by clearing the screen and drawing the
         sprites every time the function is called. """
 
     # Set the background image
-    screen.blit(images["background"], screenRect)
+    screen.blit(images["background"], worldRect)
 
     # Draw the crosshair on the screen
     screen.blit(images["crosshair"], crosshair.rect)
 
+    # Move the camera
+    screen.blit(world, (SCREEN_WIDTH // 2 - cameraX, SCREEN_HEIGHT // 2 - cameraY))
+
     # Draw the players and jutsu on the screen
-    player.draw(screen)
+    player.draw(screen, cameraX, cameraY)
     for playerObject in playerList.values():
-        playerObject.draw(screen)
+        playerObject.draw(screen, cameraX, cameraY)
     for jutsuObject in jutsuList.values():
         jutsuObject.draw(screen)
 
@@ -102,9 +105,12 @@ def main(crosshair: Crosshair, playerList: dict, jutsuList: list) -> None:
         if data:
             playerList, jutsuList = data
 
-        # Update the states of the player, crosshair and jutsu objects
-        player.move()
+        # Update the states of the player, crosshair, camera and jutsu objects
+        playerX, playerY = player.move()
         crosshair.update()
+
+        cameraX = min(max(playerX, SCREEN_WIDTH // 2), WORLD_WIDTH - SCREEN_WIDTH // 2)
+        cameraY = min(max(playerY, SCREEN_HEIGHT // 2), WORLD_HEIGHT - SCREEN_HEIGHT // 2)
 
         for jutsuObject in jutsuList.values():
             # Remove the jutsu if it goes off the screen
@@ -115,7 +121,8 @@ def main(crosshair: Crosshair, playerList: dict, jutsuList: list) -> None:
                 jutsuObject.update()
 
         # Update the screen
-        updateScreen(crosshair, player, playerList, jutsuList)
+        # print(clock.get_fps())
+        updateScreen(crosshair, player, playerList, jutsuList, cameraX, cameraY)
 
         # Limit the screen updates to FPS frames per second
         clock.tick(FPS)
@@ -132,8 +139,15 @@ if __name__ == "__main__":
     screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
     screenRect = screen.get_rect()
 
+    # Initiate the world with the given width and height
+    # The world is in a fixed position that the player moves around whilst
+    # the screen is what the user can see
+    world = pygame.Surface((WORLD_WIDTH, WORLD_HEIGHT))
+    worldRect = world.get_rect()
+    world.fill((40, 40, 40))
+
     # Ensure that the mouse is invisible whilst still moving the crosshair
-    pygame.mouse.set_cursor((8,8),(0,0),(0,0,0,0,0,0,0,0),(0,0,0,0,0,0,0,0))
+    # pygame.mouse.set_cursor((8,8),(0,0),(0,0,0,0,0,0,0,0),(0,0,0,0,0,0,0,0))
 
     # Initiate the connection to the server and retrieve the player
     network = Network()

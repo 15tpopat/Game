@@ -27,21 +27,22 @@ class Player:
         self.secondaryAffinity = secondaryAffinity
 
         # Set the technical player attributes
-        self.x = randint(int(SCREEN_WIDTH * PLAYER_SPAWN_GAP),
-                         int(SCREEN_WIDTH * (1 - PLAYER_SPAWN_GAP)))
-        self.y = randint(int(SCREEN_HEIGHT * PLAYER_SPAWN_GAP),
-                         int(SCREEN_HEIGHT * (1 - PLAYER_SPAWN_GAP)))
+        self.x = randint(int(WORLD_WIDTH * PLAYER_SPAWN_GAP),
+                         int(WORLD_WIDTH * (1 - PLAYER_SPAWN_GAP)))
+        self.y = randint(int(WORLD_HEIGHT * PLAYER_SPAWN_GAP),
+                         int(WORLD_HEIGHT * (1 - PLAYER_SPAWN_GAP)))
         self.width = PLAYER_WIDTH
         self.height = PLAYER_HEIGHT
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
         self.colour = (randint(0, 255), randint(0, 128), randint(0, 255)) # Using 128 on green ensures the colour chosen isn't white
         self.step = PLAYER_SPEED # The amount of units to increase the x, y positions by per frame (speed)
 
-    def draw(self, screen: pygame.Surface) -> None:
+    def draw(self, screen: pygame.Surface, cameraX: int, cameraY: int) -> None:
         # Draw the sprite onto the screen
-        pygame.draw.rect(screen, self.colour, self.rect)
+        position = int(SCREEN_WIDTH // 2 + self.x - cameraX), int(SCREEN_HEIGHT // 2 + self.y - cameraY)
+        pygame.draw.circle(screen, (0, 0, 100), position, 20)
 
-    def move(self) -> None:
+    def move(self) -> tuple:
         # Get a dictionary of what keys are pressed
         keysPressed = pygame.key.get_pressed()
 
@@ -56,6 +57,8 @@ class Player:
             self.x += self.step
 
         self.updatePosition()
+
+        return self.x, self.y
 
     def updatePosition(self) -> None:
         # Update the position attribute used to draw the sprite

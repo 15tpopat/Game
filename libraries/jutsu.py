@@ -9,15 +9,15 @@ class Jutsu:
 
     def __init__(
         self,
-        playerRect: pygame.Rect,
+        player: pygame.Rect,
         width: int,
         height: int,
         jutsuID: int,
         mousePosition: tuple
     ) -> object:
         # Set the technical jutsu attributes
-        self.x = playerRect.center[0]
-        self.y = playerRect.center[1]
+        self.x = player.center[0]
+        self.y = player.center[1]
         self.width = width
         self.height = height
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
@@ -28,7 +28,7 @@ class Jutsu:
         self.remove = False
 
         # Calculate the trajectory of the jutsu
-        self.playerPosition = pygame.math.Vector2(player.rect.center)
+        self.playerPosition = pygame.math.Vector2(player.center)
         distance = mousePosition - self.playerPosition
         self.velocity = distance.normalize() * JUTSU_SPEED
 
