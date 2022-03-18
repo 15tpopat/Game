@@ -28,8 +28,8 @@ class Jutsu:
         self.remove = False
 
         # Calculate the trajectory of the jutsu
-        self.playerPosition = pygame.math.Vector2(player.rect.center)
-        distance = mousePosition - self.playerPosition
+        self.jutsuPosition = pygame.math.Vector2(playerRect.center)
+        distance = mousePosition - self.jutsuPosition
         self.velocity = distance.normalize() * JUTSU_SPEED
 
     def draw(self, screen: pygame.Surface) -> None:
@@ -38,6 +38,7 @@ class Jutsu:
 
     def update(self) -> None:
         # Update the position attributes used to draw the sprite
-        self.playerPosition += self.velocity
-        self.rect.x = self.playerPosition.x
-        self.rect.y = self.playerPosition.y
+        self.jutsuPosition += self.velocity
+
+        # As center is a tuple, complete reassignment of attribute is required
+        self.rect.center = self.jutsuPosition.x, self.jutsuPosition.y

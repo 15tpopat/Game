@@ -34,7 +34,7 @@ class Player:
         self.width = PLAYER_WIDTH
         self.height = PLAYER_HEIGHT
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
-        self.colour = (randint(0, 255), randint(0, 128), randint(0, 255)) # Using 128 on green ensures the colour chosen isn't white
+        self.colour = (randint(0, 255), randint(0, 128), randint(0, 255)) # Using 128 on green ensures the colour chosen isn't grey
         self.step = PLAYER_SPEED # The amount of units to increase the x, y positions by per frame (speed)
 
     def draw(self, screen: pygame.Surface) -> None:
