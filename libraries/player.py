@@ -4,6 +4,7 @@ from random import randint
 from typing import Optional
 
 from settings import *
+from logging import *
 
 class Player:
     """ This class represents the player. """
@@ -40,6 +41,21 @@ class Player:
 
         # Set the attributes needed to change the activated jutsu
         self.jutsuSequence = ""
+
+    def checkForJutsu(self, jutsuIndex: dict) -> Optional[str]:
+        # Ensure there is no extra whitespace around the jutsu sequence
+        jutsuSequence = self.jutsuSequence.strip()
+
+        # Reset the jutsu sequence since we may be launching a jutsu
+        self.jutsuSequence = ""
+
+        # Change the jutsu if the jutsu sequence is valid
+        if jutsuSequence in jutsuIndex.keys():
+            jutsuKey = jutsuIndex[jutsuSequence]
+            infoMessage(f"Recognised jutsu - {jutsuKey.capitalize()}")
+            return jutsuKey
+        else:
+            debugMessage(f"Jutsu not recognised - \'{jutsuSequence}\'", end="\n")
 
     def draw(self, screen: pygame.Surface) -> None:
         # Draw the sprite onto the screen
