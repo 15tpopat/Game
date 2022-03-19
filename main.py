@@ -35,7 +35,7 @@ def loadImage(name: str) -> pygame.Surface:
     return image
 
 def scale(image: pygame.Surface, size: tuple) -> pygame.Surface:
-    """ Scale the image given to the desired resolution specified. """
+    """ Scale the image to the specified resolution. """
 
     image = pygame.transform.scale(image, size)
     return image
