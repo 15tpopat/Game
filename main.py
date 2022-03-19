@@ -103,7 +103,6 @@ def main(crosshair: Crosshair, activatedJutsu: str, playerList: dict, jutsuList:
                 if event.button == 1:
                     jutsuID = randint(0, JUTSU_ID_RANGE)
 
-                    jutsu = Jutsu(player.rect, 10, 10, jutsuID, event.pos)
                     if activatedJutsu == "fireball_jutsu":
                         jutsu = FireballJutsu(player.rect, 10, 10, jutsuID, event.pos)
                     elif activatedJutsu == "mud_wall":
