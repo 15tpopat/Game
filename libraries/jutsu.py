@@ -1,6 +1,6 @@
 import pygame
 
-from math import pi
+from math import atan2, pi
 
 from settings import *
 
