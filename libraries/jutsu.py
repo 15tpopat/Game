@@ -91,10 +91,9 @@ class MudWall(Jutsu):
         self.lifetime = (db["characteristics"]["lifetime"] * 1000) + timePassed
 
         # Calculate the angle of the jutsu
-        playerPosition = pygame.math.Vector2(playerRect.center)
-        jutsuPosition = pygame.math.Vector2(mousePosition)
-        distance = jutsuPosition - playerPosition
-        self.angle = math.atan2(-distance.y, distance.x) % (2 * pi)
+        dy = mousePosition[1] - playerRect.center[1]
+        dx = mousePosition[0] - playerRect.center[0]
+        self.angle = atan2(-dy, dx) % (2 * pi)
 
     def draw(self, screen: pygame.Surface) -> None:
         # Draw the sprite onto the screen
