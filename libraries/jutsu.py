@@ -1,5 +1,7 @@
 import pygame
 
+from math import pi
+
 from settings import *
 
 class Jutsu:
@@ -88,13 +90,18 @@ class MudWall(Jutsu):
         # Despawn after X amount of time
         self.lifetime = (db["characteristics"]["lifetime"] * 1000) + timePassed
 
+        # Calculate the angle of the jutsu
+        playerPosition = pygame.math.Vector2(playerRect.center)
+        jutsuPosition = pygame.math.Vector2(mousePosition)
+        self.angle = playerPosition.angle_to(jutsuPosition)
+
     def draw(self, screen: pygame.Surface) -> None:
         # Draw the sprite onto the screen
         pygame.draw.arc(screen,
             self.colour,
             self.rect,
-            - pi / 4,
-            pi / 4,
+            self.angle - (pi / 4),
+            self.angle + (pi / 4),
             width=20)
 
     def update(self) -> None:
