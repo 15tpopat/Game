@@ -84,6 +84,15 @@ class MudWall(Jutsu):
         self.colour = db["technical"]["colour"]
         self.rect.center = mousePosition
 
+    def draw(self, screen: pygame.Surface) -> None:
+        # Draw the sprite onto the screen
+        pygame.draw.arc(screen,
+            self.colour,
+            self.rect,
+            - pi / 4,
+            pi / 4,
+            width=20)
+
     def update(self) -> None:
         pass
 
