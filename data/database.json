@@ -3,6 +3,11 @@
       	"fireball_jutsu": {
         		"name": "Fireball Jutsu",
         		"nature": "fire",
+            "technical": {
+                "colour": [255, 0, 0],
+                "width": 25,
+                "height": 25
+            },
             "texts": ["fireball", "fireball jutsu"],
         		"seals": ["snake", "ram", "monkey", "boar", "horse", "tiger"]
       	},

@@ -47,13 +47,19 @@ class FireballJutsu(Jutsu):
     def __init__(
         self,
         playerRect: pygame.Rect,
-        width: int,
-        height: int,
+        db: dict,
         jutsuID: int,
         mousePosition: tuple
     ) -> object:
         # Initiate the jutsu super class
-        super().__init__(playerRect, width, height, jutsuID, mousePosition)
+        super().__init__(
+            playerRect,
+            db["technical"]["width"],
+            db["technical"]["height"],
+            jutsuID,
+            mousePosition)
+
+        self.colour = db["technical"]["colour"]
 
 class MudWall(Jutsu):
     """ This class represents the earth-natured mud wall jutsu. """
