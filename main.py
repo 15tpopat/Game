@@ -104,15 +104,40 @@ def main(crosshair: Crosshair, activatedJutsu: str, playerList: dict, jutsuList:
                     jutsuID = randint(0, JUTSU_ID_RANGE)
 
                     if activatedJutsu == "fireball_jutsu":
-                        jutsu = FireballJutsu(player.rect, 10, 10, jutsuID, event.pos)
+                        jutsu = FireballJutsu(
+                            player.rect,
+                            10,
+                            10,
+                            jutsuID,
+                            event.pos)
                     elif activatedJutsu == "mud_wall":
-                        jutsu = MudWall(player.rect, 10, 10, jutsuID, event.pos)
+                        jutsu = MudWall(
+                            player.rect,
+                            10,
+                            10,
+                            jutsuID,
+                            event.pos)
                     elif activatedJutsu == "gale_palm":
-                        jutsu = GalePalm(player.rect, 10, 10, jutsuID, event.pos)
+                        jutsu = GalePalm(
+                            player.rect,
+                            10,
+                            10,
+                            jutsuID,
+                            event.pos)
                     elif activatedJutsu == "mist_barrier":
-                        jutsu = MistBarrier(player.rect, 10, 10, jutsuID, event.pos)
+                        jutsu = MistBarrier(
+                            player.rect,
+                            10,
+                            10,
+                            jutsuID,
+                            event.pos)
                     elif activatedJutsu == "limelight_minor":
-                        jutsu = Limelight(player.rect, 10, 10, jutsuID, event.pos)
+                        jutsu = Limelight(
+                            player.rect,
+                            10,
+                            10,
+                            jutsuID,
+                            event.pos)
                     else:
                         pass
 
