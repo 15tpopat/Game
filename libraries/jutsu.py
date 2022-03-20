@@ -93,7 +93,8 @@ class MudWall(Jutsu):
         # Calculate the angle of the jutsu
         playerPosition = pygame.math.Vector2(playerRect.center)
         jutsuPosition = pygame.math.Vector2(mousePosition)
-        self.angle = playerPosition.angle_to(jutsuPosition)
+        distance = jutsuPosition - playerPosition
+        self.angle = math.atan2(-distance.y, distance.x) % (2 * pi)
 
     def draw(self, screen: pygame.Surface) -> None:
         # Draw the sprite onto the screen
