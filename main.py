@@ -112,8 +112,7 @@ def main(crosshair: Crosshair, activatedJutsu: str, db: dict, playerList: dict, 
                     elif activatedJutsu == "mud_wall":
                         jutsu = MudWall(
                             player.rect,
-                            10,
-                            10,
+                            db["jutsu"]["mud_wall"],
                             jutsuID,
                             event.pos)
                     elif activatedJutsu == "gale_palm":

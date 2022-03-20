@@ -59,6 +59,7 @@ class FireballJutsu(Jutsu):
             jutsuID,
             mousePosition)
 
+        # Override inherited attributes
         self.colour = db["technical"]["colour"]
 
 class MudWall(Jutsu):
@@ -67,13 +68,24 @@ class MudWall(Jutsu):
     def __init__(
         self,
         playerRect: pygame.Rect,
-        width: int,
-        height: int,
+        db: dict,
         jutsuID: int,
         mousePosition: tuple
     ) -> object:
         # Initiate the jutsu super class
-        super().__init__(playerRect, width, height, jutsuID, mousePosition)
+        super().__init__(
+            playerRect,
+            db["technical"]["width"],
+            db["technical"]["height"],
+            jutsuID,
+            mousePosition)
+
+        # Override inherited attributes
+        self.colour = db["technical"]["colour"]
+        self.rect.center = mousePosition
+
+    def update(self) -> None:
+        pass
 
 class GalePalm(Jutsu):
     """ This class represents the wind-natured gale palm jutsu. """

@@ -14,6 +14,11 @@
       	"mud_wall": {
         		"name": "Mud Wall",
         		"nature": "earth",
+            "technical": {
+                "colour": [111, 78, 55],
+                "width": 300,
+                "height": 300
+            },
             "texts": ["mud wall", "mud wall jutsu"],
         		"seals": ["tiger", "hare", "boar", "dog"]
       	},
