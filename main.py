@@ -60,15 +60,15 @@ def updateScreen(crosshair: Crosshair, player: Player, playerList: dict, jutsuLi
     # Set the background image
     screen.blit(images["background"], screenRect)
 
-    # Draw the crosshair on the screen
-    screen.blit(images["crosshair"], crosshair.rect)
-
     # Draw the players and jutsu on the screen
     player.draw(screen)
     for playerObject in playerList.values():
         playerObject.draw(screen)
     for jutsuObject in jutsuList.values():
         jutsuObject.draw(screen)
+
+    # Draw the crosshair on the screen
+    screen.blit(images["crosshair"], crosshair.rect)
 
     pygame.display.update()
 
