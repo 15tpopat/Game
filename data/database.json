@@ -19,6 +19,9 @@
                 "width": 300,
                 "height": 300
             },
+            "characteristics": {
+                "lifetime": 10
+            },
             "texts": ["mud wall", "mud wall jutsu"],
         		"seals": ["tiger", "hare", "boar", "dog"]
       	},

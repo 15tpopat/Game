@@ -69,6 +69,7 @@ class MudWall(Jutsu):
         self,
         playerRect: pygame.Rect,
         db: dict,
+        timePassed: int,
         jutsuID: int,
         mousePosition: tuple
     ) -> object:
@@ -83,6 +84,9 @@ class MudWall(Jutsu):
         # Override inherited attributes
         self.colour = db["technical"]["colour"]
         self.rect.center = mousePosition
+
+        # Despawn after X amount of time
+        self.lifetime = (db["characteristics"]["lifetime"] * 1000) + timePassed
 
     def draw(self, screen: pygame.Surface) -> None:
         # Draw the sprite onto the screen
