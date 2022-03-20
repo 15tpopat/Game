@@ -167,7 +167,7 @@ def main(crosshair: Crosshair, activatedJutsu: str, db: dict, playerList: dict, 
 
             # Remove the jutsu if it has expired
             # If the jutsu doesn't have a lifetime, set it to an arbitrarily large number
-            elif getattr(jutsuObject, "lifetime", 10000) <= timePassed:
+            elif getattr(jutsuObject, "lifetime", timePassed + 1000000) <= timePassed:
                 jutsuObject.remove = True
 
             # Otherwise...
