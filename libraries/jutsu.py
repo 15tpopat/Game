@@ -83,9 +83,10 @@ class MudWall(Jutsu):
             jutsuID,
             mousePosition)
 
-        # Override inherited attributes
+        # Override inherited attributes and add new ones
         self.colour = db["technical"]["colour"]
         self.rect.center = mousePosition
+        self.thickness = db["technical"]["thickness"]
 
         # Despawn after X amount of time
         self.lifetime = (db["characteristics"]["lifetime"] * 1000) + timePassed
@@ -102,9 +103,10 @@ class MudWall(Jutsu):
             self.rect,
             self.angle - (pi / 4),
             self.angle + (pi / 4),
-            width=20)
+            width=self.thickness)
 
     def update(self) -> None:
+        # Overrides the inherited update method to stop the jutsu from moving
         pass
 
 class GalePalm(Jutsu):
