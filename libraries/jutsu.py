@@ -12,6 +12,7 @@ class Jutsu:
         playerRect: pygame.Rect,
         width: int,
         height: int,
+        speed: int,
         jutsuID: int,
         mousePosition: tuple
     ) -> object:
@@ -30,7 +31,7 @@ class Jutsu:
         # Calculate the trajectory of the jutsu
         self.jutsuPosition = pygame.math.Vector2(playerRect.center)
         distance = mousePosition - self.jutsuPosition
-        self.velocity = distance.normalize() * JUTSU_SPEED
+        self.velocity = distance.normalize() * speed
 
     def draw(self, screen: pygame.Surface) -> None:
         # Draw the sprite onto the screen
