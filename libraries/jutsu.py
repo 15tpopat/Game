@@ -59,6 +59,7 @@ class FireballJutsu(Jutsu):
             playerRect,
             db["technical"]["width"],
             db["technical"]["height"],
+            db["characteristics"]["speed"],
             jutsuID,
             mousePosition)
 
@@ -81,6 +82,7 @@ class MudWall(Jutsu):
             playerRect,
             db["technical"]["width"],
             db["technical"]["height"],
+            0,
             jutsuID,
             mousePosition)
 
@@ -116,13 +118,21 @@ class GalePalm(Jutsu):
     def __init__(
         self,
         playerRect: pygame.Rect,
-        width: int,
-        height: int,
+        db: dict,
         jutsuID: int,
         mousePosition: tuple
     ) -> object:
         # Initiate the jutsu super class
-        super().__init__(playerRect, width, height, jutsuID, mousePosition)
+        super().__init__(
+            playerRect,
+            db["technical"]["width"],
+            db["technical"]["height"],
+            db["characteristics"]["speed"],
+            jutsuID,
+            mousePosition)
+
+        # Override inherited attributes and add new one
+        self.colour = db["technical"]["colour"]
 
 class MistBarrier(Jutsu):
     """ This class represents the water-natured crimson mist barrier jutsu. """

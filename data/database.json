@@ -8,6 +8,9 @@
                 "width": 25,
                 "height": 25
             },
+            "characteristics": {
+                "speed": 5
+            },
             "texts": ["fireball", "fireball jutsu"],
         		"seals": ["snake", "ram", "monkey", "boar", "horse", "tiger"]
       	},
@@ -29,6 +32,14 @@
       	"gale_palm": {
         		"name": "Gale Palm",
         		"nature": "wind",
+            "technical": {
+                "colour": [105, 105, 105],
+                "width": 10,
+                "height": 10
+            },
+            "characteristics": {
+                "speed": 20
+            },
             "texts": ["gale palm"],
         		"seals": ["snake", "ram", "boar", "horse", "bird"]
       	},

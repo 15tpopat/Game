@@ -122,8 +122,7 @@ def main(crosshair: Crosshair, activatedJutsu: str, db: dict, playerList: dict, 
                     elif activatedJutsu == "gale_palm":
                         jutsu = GalePalm(
                             player.rect,
-                            10,
-                            10,
+                            db["jutsu"]["gale_palm"],
                             jutsuID,
                             event.pos)
                     elif activatedJutsu == "mist_barrier":
