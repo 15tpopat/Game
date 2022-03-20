@@ -72,7 +72,7 @@ def updateScreen(crosshair: Crosshair, player: Player, playerList: dict, jutsuLi
 
     pygame.display.update()
 
-def main(crosshair: Crosshair, activatedJutsu: str, playerList: dict, jutsuList: list, jutsuIndex: dict) -> None:
+def main(crosshair: Crosshair, activatedJutsu: str, db: dict, playerList: dict, jutsuList: list, jutsuIndex: dict) -> None:
     """ This function contains the main game loop. """
 
     # Start game loop
@@ -215,4 +215,4 @@ if __name__ == "__main__":
             jutsuIndex[text] = jutsu
 
     # Run the main loop
-    main(crosshair, activatedJutsu, playerList, jutsuList, jutsuIndex)
+    main(crosshair, activatedJutsu, db, playerList, jutsuList, jutsuIndex)
