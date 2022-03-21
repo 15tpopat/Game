@@ -46,7 +46,16 @@
       	"mist_barrier": {
         		"name": "Crimson Mist Barrier",
         		"nature": "water",
-            "texts": ["mist barrier", "crimson mist barrier"],
+            "technical": {
+                "colour": [173, 216, 230],
+                "width": 400,
+                "height": 400
+            },
+            "characteristics": {
+                "lifetime": 3,
+                "speed": 15
+            },
+            "texts": ["mist barrier", "crimson mist", "crimson mist barrier"],
         		"seals": ["dog", "snake", "ram"]
       	},
       	"chidori": {

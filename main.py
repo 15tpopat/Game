@@ -128,8 +128,8 @@ def main(crosshair: Crosshair, activatedJutsu: str, db: dict, playerList: dict, 
                     elif activatedJutsu == "mist_barrier":
                         jutsu = MistBarrier(
                             player.rect,
-                            10,
-                            10,
+                            db["jutsu"]["mist_barrier"],
+                            timePassed,
                             jutsuID,
                             event.pos)
                     elif activatedJutsu == "limelight_minor":
@@ -159,18 +159,23 @@ def main(crosshair: Crosshair, activatedJutsu: str, db: dict, playerList: dict, 
         timePassed = pygame.time.get_ticks()
 
         for jutsuObject in jutsuList.values():
+            update = True
+
             # Remove the jutsu if it goes off the screen
             if (jutsuObject.rect.x < -screenWidthBorder or jutsuObject.rect.x > SCREEN_WIDTH + screenWidthBorder) or \
                (jutsuObject.rect.y < -screenHeightBorder or jutsuObject.rect.y > SCREEN_HEIGHT + screenHeightBorder):
-                jutsuObject.remove = True
+                if type(jutsuObject) is not MistBarrier:
+                    jutsuObject.remove = True
+                    update = False
 
             # Remove the jutsu if it has expired
             # If the jutsu doesn't have a lifetime, set it to an arbitrarily large number
-            elif getattr(jutsuObject, "lifetime", timePassed + 1000000) <= timePassed:
+            if getattr(jutsuObject, "lifetime", timePassed + 1000000) <= timePassed:
                 jutsuObject.remove = True
+                update = False
 
             # Otherwise...
-            else:
+            if update:
                 jutsuObject.update()
 
         # Update the screen

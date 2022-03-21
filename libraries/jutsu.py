@@ -140,13 +140,25 @@ class MistBarrier(Jutsu):
     def __init__(
         self,
         playerRect: pygame.Rect,
-        width: int,
-        height: int,
+        db: dict,
+        timePassed: int,
         jutsuID: int,
         mousePosition: tuple
     ) -> object:
         # Initiate the jutsu super class
-        super().__init__(playerRect, width, height, jutsuID, mousePosition)
+        super().__init__(
+            playerRect,
+            db["technical"]["width"],
+            db["technical"]["height"],
+            db["characteristics"]["speed"],
+            jutsuID,
+            mousePosition)
+
+        # Override inherited attributes
+        self.colour = db["technical"]["colour"]
+
+        # Despawn after X amount of time
+        self.lifetime = (db["characteristics"]["lifetime"] * 1000) + timePassed
 
 class Limelight(Jutsu):
     """ This class represents the lightning-natured limelight minor jutsu. """
