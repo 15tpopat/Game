@@ -9,6 +9,7 @@ from settings import *
 from libraries.network import Network
 from libraries.player import Player
 from libraries.jutsu import *
+from libraries.menu import Menu
 
 class Crosshair:
     """ This class represents the crosshair. """
@@ -235,6 +236,9 @@ if __name__ == "__main__":
     pygame.mixer.music.load(BACKGROUND_MUSIC_PATH)
     pygame.mixer.music.set_volume(DEFAULT_VOLUME)
     pygame.mixer.music.play(-1) # Play the music on loop
+
+    # Open the main menu and run the menu loop
+    Menu(screen)
 
     # Run the main loop
     main(crosshair, activatedJutsu, db, playerList, jutsuList, jutsuIndex)
