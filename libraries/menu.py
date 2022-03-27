@@ -161,13 +161,15 @@ class Menu:
     def toggleFullscreen(self, value):
         if value:
             infoObject = pygame.display.Info()
-            self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN, pygame.RESIZABLE)
+            self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
             self.mainMenu.resize(infoObject.current_w, infoObject.current_h)
             self.settingsMenu.resize(infoObject.current_w, infoObject.current_h)
+            self.multiplayerMenu.resize(infoObject.current_w, infoObject.current_h)
         else:
-            pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE)
+            pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
             self.mainMenu.resize(SCREEN_WIDTH, SCREEN_HEIGHT)
             self.settingsMenu.resize(SCREEN_WIDTH, SCREEN_HEIGHT)
+            self.multiplayerMenu.resize(SCREEN_WIDTH, SCREEN_HEIGHT)
 
         self.vars["fullscreen"] = value
 

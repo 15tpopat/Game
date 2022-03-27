@@ -194,7 +194,7 @@ if __name__ == "__main__":
     clock = pygame.time.Clock()
 
     # Initiate the screen with the given width and height
-    screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.NOFRAME)
     screenRect = screen.get_rect()
 
     # Ensure that the mouse is invisible whilst still moving the crosshair
