@@ -230,5 +230,11 @@ if __name__ == "__main__":
         for text in db["jutsu"][jutsu]["texts"]:
             jutsuIndex[text] = jutsu
 
+    # Enable the background music and put it on loop
+    pygame.mixer.init()
+    pygame.mixer.music.load(BACKGROUND_MUSIC_PATH)
+    pygame.mixer.music.set_volume(DEFAULT_VOLUME)
+    pygame.mixer.music.play(-1) # Play the music on loop
+
     # Run the main loop
     main(crosshair, activatedJutsu, db, playerList, jutsuList, jutsuIndex)

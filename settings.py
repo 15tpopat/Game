@@ -10,6 +10,7 @@ SCREEN_BORDER_MULTIPLIER = 0.1
 DATABASE_PATH = "data/database.json"
 IMAGES_PATH = "data/images"
 SCREENSHOT_PATH = "screenshots"
+BACKGROUND_MUSIC_PATH = "data/music/Naruto Shippuden Opening 5.mp3"
 
 # NETWORK SETTINGS
 HOST = "localhost"
@@ -31,3 +32,6 @@ CROSSHAIR_HEIGHT = 40
 JUTSU_COLOUR = (0, 0, 255)
 JUTSU_ID_RANGE = 1023
 DEFAULT_ACTIVATED_JUTSU = "fireball_jutsu"
+
+# MUSIC SETTINGS
+DEFAULT_VOLUME = 0.1
