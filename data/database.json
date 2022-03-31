@@ -47,13 +47,10 @@
         		"name": "Crimson Mist Barrier",
         		"nature": "water",
             "technical": {
-                "colour": [173, 216, 230],
-                "width": 400,
-                "height": 400
+                "colour": [183, 40, 250],
+                "maximumRadius": 250
             },
             "characteristics": {
-                "lifetime": 3,
-                "speed": 15
             },
             "texts": ["mist barrier", "crimson mist", "crimson mist barrier"],
         		"seals": ["dog", "snake", "ram"]

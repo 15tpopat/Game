@@ -1,6 +1,6 @@
 import pygame
 
-from math import atan2, pi
+from math import atan2, pi, sin, sqrt
 
 from settings import *
 
@@ -148,17 +148,34 @@ class MistBarrier(Jutsu):
         # Initiate the jutsu super class
         super().__init__(
             playerRect,
-            db["technical"]["width"],
-            db["technical"]["height"],
-            db["characteristics"]["speed"],
+            1,
+            1,
+            0,
             jutsuID,
             mousePosition)
 
-        # Override inherited attributes
+        # Override inherited attributes and add new ones
         self.colour = db["technical"]["colour"]
+        self.radius = 1
+        self.maximumRadius = db["technical"]["maximumRadius"]
+        self.timePassed = 0
 
-        # Despawn after X amount of time
-        self.lifetime = (db["characteristics"]["lifetime"] * 1000) + timePassed
+    def draw(self, screen: pygame.Surface) -> None:
+        # Draw the sprite onto the screen
+        pygame.draw.circle(screen, self.colour, (self.x, self.y), self.radius)
+
+    def update(self) -> None:
+        # Overrides the inherited update method to increase and decrease the radius of the circle
+
+        # The smaller the value, the slower the rate of change of size is
+        self.timePassed += 0.005
+
+        # This formula rapidly increases the radius of the circle and then slowly decreases it
+        self.radius = self.maximumRadius * sin((self.timePassed - sqrt(pi)) ** 2)
+
+        # If the radius is negative, delete the jutsu
+        if self.radius <= 1:
+            self.remove = True
 
 class Limelight(Jutsu):
     """ This class represents the lightning-natured limelight minor jutsu. """
