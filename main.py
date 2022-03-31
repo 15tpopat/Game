@@ -133,11 +133,10 @@ def main(crosshair: Crosshair, activatedJutsu: str, db: dict, playerList: dict, 
                             timePassed,
                             jutsuID,
                             event.pos)
-                    elif activatedJutsu == "limelight_minor":
-                        jutsu = Limelight(
+                    elif activatedJutsu == "chidori":
+                        jutsu = Chidori(
                             player.rect,
-                            10,
-                            10,
+                            db["jutsu"]["chidori"],
                             jutsuID,
                             event.pos)
                     else:

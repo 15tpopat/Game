@@ -58,6 +58,12 @@
       	"chidori": {
         		"name": "Chidori",
         		"nature": "lightning",
+            "technical": {
+                "colour": [173, 216, 230]
+            },
+            "characteristics": {
+                "speed": 25
+            },
             "texts": ["chidori"],
         		"seals": ["tiger", "hare", "boar", "boar", "horse", "tiger"]
       	}

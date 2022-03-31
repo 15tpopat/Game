@@ -30,8 +30,8 @@ class Jutsu:
 
         # Calculate the trajectory of the jutsu
         self.jutsuPosition = pygame.math.Vector2(playerRect.center)
-        distance = mousePosition - self.jutsuPosition
-        self.velocity = distance.normalize() * speed
+        self.distance = mousePosition - self.jutsuPosition
+        self.velocity = self.distance.normalize() * speed
 
     def draw(self, screen: pygame.Surface) -> None:
         # Draw the sprite onto the screen
@@ -177,16 +177,35 @@ class MistBarrier(Jutsu):
         if self.radius <= 1:
             self.remove = True
 
-class Limelight(Jutsu):
+class Chidori(Jutsu):
     """ This class represents the lightning-natured limelight minor jutsu. """
 
     def __init__(
         self,
         playerRect: pygame.Rect,
-        width: int,
-        height: int,
+        db: dict,
         jutsuID: int,
         mousePosition: tuple
     ) -> object:
         # Initiate the jutsu super class
-        super().__init__(playerRect, width, height, jutsuID, mousePosition)
+        super().__init__(
+            player.rect,
+            PLAYER_WIDTH * 1.5,
+            PLAYER_HEIGHT * 1.5,
+            db["characteristics"]["speed"],
+            jutsuID,
+            mousePosition)
+
+        # Override inherited attributes and add new ones
+        self.colour = db["technical"]["colour"]
+        self.distanceMag = self.distance.magnitude()
+        self.velocityMag = self.velocity.magnitude()
+
+    def update(self) -> None:
+        # Adds to the inherited update method to remove the jutsu at the mouse position
+        super().update()
+
+        # If the jutsu has travelled beyond the original mouse point, remove it
+        self.distanceMag -= self.velocityMag
+        if self.distanceMag < 0:
+            self.remove = True
