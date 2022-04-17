@@ -29,6 +29,7 @@ class Player:
         self.secondaryAffinity = secondaryAffinity
 
         # Set the technical player attributes
+        self.playerID = randint(0, PLAYER_ID_RANGE)
         self.x = randint(int(SCREEN_WIDTH * PLAYER_SPAWN_GAP),
                          int(SCREEN_WIDTH * (1 - PLAYER_SPAWN_GAP)))
         self.y = randint(int(SCREEN_HEIGHT * PLAYER_SPAWN_GAP),

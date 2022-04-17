@@ -13,6 +13,7 @@ class Jutsu:
         width: int,
         height: int,
         speed: int,
+        playerID: int,
         jutsuID: int,
         mousePosition: tuple
     ) -> object:
@@ -25,6 +26,7 @@ class Jutsu:
         self.colour = JUTSU_COLOUR
 
         # Set the network jutsu attributes
+        self.playerID = playerID
         self.jutsuID = jutsuID
         self.remove = False
 
@@ -51,6 +53,7 @@ class FireballJutsu(Jutsu):
         self,
         playerRect: pygame.Rect,
         db: dict,
+        playerID: int,
         jutsuID: int,
         mousePosition: tuple
     ) -> object:
@@ -60,6 +63,7 @@ class FireballJutsu(Jutsu):
             db["technical"]["width"],
             db["technical"]["height"],
             db["characteristics"]["speed"],
+            playerID,
             jutsuID,
             mousePosition)
 
@@ -74,6 +78,7 @@ class MudWall(Jutsu):
         playerRect: pygame.Rect,
         db: dict,
         timePassed: int,
+        playerID: int,
         jutsuID: int,
         mousePosition: tuple
     ) -> object:
@@ -83,6 +88,7 @@ class MudWall(Jutsu):
             db["technical"]["width"],
             db["technical"]["height"],
             0,
+            playerID,
             jutsuID,
             mousePosition)
 
@@ -119,6 +125,7 @@ class GalePalm(Jutsu):
         self,
         playerRect: pygame.Rect,
         db: dict,
+        playerID: int,
         jutsuID: int,
         mousePosition: tuple
     ) -> object:
@@ -128,6 +135,7 @@ class GalePalm(Jutsu):
             db["technical"]["width"],
             db["technical"]["height"],
             db["characteristics"]["speed"],
+            playerID,
             jutsuID,
             mousePosition)
 
@@ -142,6 +150,7 @@ class MistBarrier(Jutsu):
         playerRect: pygame.Rect,
         db: dict,
         timePassed: int,
+        playerID: int,
         jutsuID: int,
         mousePosition: tuple
     ) -> object:
@@ -151,6 +160,7 @@ class MistBarrier(Jutsu):
             1,
             1,
             0,
+            playerID,
             jutsuID,
             mousePosition)
 
@@ -184,6 +194,7 @@ class Chidori(Jutsu):
         self,
         playerRect: pygame.Rect,
         db: dict,
+        playerID: int,
         jutsuID: int,
         mousePosition: tuple
     ) -> object:
@@ -193,6 +204,7 @@ class Chidori(Jutsu):
             PLAYER_WIDTH * 1.5,
             PLAYER_HEIGHT * 1.5,
             db["characteristics"]["speed"],
+            playerID,
             jutsuID,
             mousePosition)
 

@@ -23,6 +23,7 @@ PLAYER_WIDTH = 60
 PLAYER_HEIGHT = 60
 PLAYER_SPEED = 4
 PLAYER_SPAWN_GAP = 0.1 # Minimum distance from boundary via multiplier of screen size
+PLAYER_ID_RANGE = 1023
 
 # CROSSHAIR SETTINGS
 CROSSHAIR_WIDTH = 40

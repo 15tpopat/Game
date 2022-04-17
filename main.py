@@ -111,6 +111,7 @@ def main(crosshair: Crosshair, activatedJutsu: str, db: dict, playerList: dict, 
                         jutsu = FireballJutsu(
                             player.rect,
                             db["jutsu"]["fireball_jutsu"],
+                            player.playerID,
                             jutsuID,
                             event.pos)
                     elif activatedJutsu == "mud_wall":
@@ -118,12 +119,14 @@ def main(crosshair: Crosshair, activatedJutsu: str, db: dict, playerList: dict, 
                             player.rect,
                             db["jutsu"]["mud_wall"],
                             timePassed,
+                            player.playerID,
                             jutsuID,
                             event.pos)
                     elif activatedJutsu == "gale_palm":
                         jutsu = GalePalm(
                             player.rect,
                             db["jutsu"]["gale_palm"],
+                            player.playerID,
                             jutsuID,
                             event.pos)
                     elif activatedJutsu == "mist_barrier":
@@ -131,12 +134,14 @@ def main(crosshair: Crosshair, activatedJutsu: str, db: dict, playerList: dict, 
                             player.rect,
                             db["jutsu"]["mist_barrier"],
                             timePassed,
+                            player.playerID,
                             jutsuID,
                             event.pos)
                     elif activatedJutsu == "chidori":
                         jutsu = Chidori(
                             player.rect,
                             db["jutsu"]["chidori"],
+                            player.playerID,
                             jutsuID,
                             event.pos)
                     else:
