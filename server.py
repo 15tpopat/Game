@@ -90,16 +90,14 @@ class Server:
                         if player != currentPlayer:
                             playerList[playerKey] = player
 
-                    # Send the states of all the jutsu
+                    # Send the states of all the jutsu bar the jutsu launched by the player who sent the data
                     jutsuList = data["jutsu"]
                     for jutsuObject in jutsuList.values():
-                        if jutsuObject.remove:
-                            try:
-                                del jutsu[jutsuObject.jutsuID]
-                            except KeyError:
-                                pass
-                        else:
-                            jutsu[jutsuObject.jutsuID] = jutsuObject
+                        if currentPlayer.playerID == jutsuObject.playerID:
+                            if jutsuObject.remove:
+                                jutsu.pop(jutsuObject.jutsuID)
+                            else:
+                                jutsu[jutsuObject.jutsuID] = jutsuObject
                 else:
                     # If no data is received, the client has disconnected
                     infoMessage(f"{clientAddress} has disconnected", colour="yellow")
