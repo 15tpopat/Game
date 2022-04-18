@@ -67,8 +67,17 @@ class FireballJutsu(Jutsu):
             jutsuID,
             mousePosition)
 
-        # Override inherited attributes
+        # Override inherited attributes and add new ones
         self.colour = db["technical"]["colour"]
+        self.damage = db["characteristics"]["damage"]
+
+    def collide(self, player) -> int:
+        self.remove = True
+        setattr(self, "remove", True)
+
+        # Reduce the health of the player when the jutsu collides with the player
+        playerHealth = getattr(player, "health") - self.damage
+        setattr(player, "health", playerHealth)
 
 class MudWall(Jutsu):
     """ This class represents the earth-natured mud wall jutsu. """

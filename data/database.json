@@ -9,6 +9,7 @@
                 "height": 25
             },
             "characteristics": {
+                "damage": 40,
                 "speed": 5
             },
             "texts": ["fireball", "fireball jutsu"],
@@ -24,6 +25,7 @@
                 "thickness": 20
             },
             "characteristics": {
+                "damage": 0,
                 "lifetime": 10
             },
             "texts": ["mud wall", "mud wall jutsu"],
@@ -38,6 +40,7 @@
                 "height": 10
             },
             "characteristics": {
+                "damage": 0,
                 "speed": 20
             },
             "texts": ["gale palm"],
@@ -51,6 +54,7 @@
                 "maximumRadius": 250
             },
             "characteristics": {
+                "damage": 0
             },
             "texts": ["mist barrier", "crimson mist", "crimson mist barrier"],
         		"seals": ["dog", "snake", "ram"]
@@ -62,6 +66,7 @@
                 "colour": [173, 216, 230]
             },
             "characteristics": {
+                "damage": 0,
                 "speed": 25
             },
             "texts": ["chidori"],

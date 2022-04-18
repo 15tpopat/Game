@@ -77,6 +77,7 @@ def main(crosshair: Crosshair, activatedJutsu: str, db: dict, playerList: dict, 
     """ This function contains the main game loop. """
 
     # Declare necessary local variables
+    collidedJutsuList = []
     timePassed = 0
 
     # Start game loop
@@ -160,16 +161,43 @@ def main(crosshair: Crosshair, activatedJutsu: str, db: dict, playerList: dict, 
         player.move()
         crosshair.update()
 
+        # Retrieve a dictionary of collided player and jutsu objects
+        collisions = pygame.sprite.groupcollide(playerList.values(), jutsuList.values(), False, False)
+
+        # Reduce the health of the player and remove the jutsu if it has collided with a player
+        for playerObject, collidedJutsu in collisions.items():
+
+            # If I collide with a jutsu...
+            if playerObject.playerID == player.playerID:
+                # That I did not launch...
+                if player.playerID != collidedJutsu.playerID:
+                    # If the player has not collided with this jutsu before...
+                    if collidedJutsu.jutsuID not in collidedJutsuList:
+                        # Reduce the chances of a jutsu being instantly
+                        if len(collidedJutsuList) == 3:
+                            collidedJutsuList.pop(0)
+
+                        # Make sure that the player jutsu collision only occurs once
+                        collidedJutsuList.append(collidedJutsu.jutsuID)
+
+                        # Damage the player if they collide with the jutsu
+                        collidedJutsu.collide(player)
+
         # Retrieve how much time has passed since the game started
         timePassed = pygame.time.get_ticks()
 
         for jutsuObject in jutsuList.values():
             update = True
 
+            # Remove the jutsu if it has collided with a jutsu
+            if jutsuObject.jutsuID in collidedJutsuList:
+                jutsuObject.remove = True
+                update = False
+
             # Remove the jutsu if it goes off the screen
             if (jutsuObject.rect.x < -screenWidthBorder or jutsuObject.rect.x > SCREEN_WIDTH + screenWidthBorder) or \
                (jutsuObject.rect.y < -screenHeightBorder or jutsuObject.rect.y > SCREEN_HEIGHT + screenHeightBorder):
-                if type(jutsuObject) is not MistBarrier:
+                if player.playerID == jutsuObject.playerID:
                     jutsuObject.remove = True
                     update = False
 
