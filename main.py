@@ -166,6 +166,7 @@ def main(crosshair: Crosshair, activatedJutsu: str, db: dict, playerList: dict, 
 
         # Reduce the health of the player and remove the jutsu if it has collided with a player
         for playerObject, collidedJutsu in collisions.items():
+            collidedJutsu = jutsuList[collidedJutsu[0].jutsuID]
 
             # If I collide with a jutsu...
             if playerObject.playerID == player.playerID:

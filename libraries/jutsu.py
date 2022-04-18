@@ -213,7 +213,7 @@ class Chidori(Jutsu):
     ) -> object:
         # Initiate the jutsu super class
         super().__init__(
-            player.rect,
+            playerRect,
             PLAYER_WIDTH * 1.5,
             PLAYER_HEIGHT * 1.5,
             db["characteristics"]["speed"],
