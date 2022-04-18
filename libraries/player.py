@@ -39,6 +39,7 @@ class Player:
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
         self.colour = (randint(0, 255), randint(0, 128), randint(0, 255)) # Using 128 on green ensures the colour chosen isn't grey
         self.step = PLAYER_SPEED # The amount of units to increase the x, y positions by per frame (speed)
+        self.dead = False
 
         # Set the attributes needed to change the activated jutsu
         self.jutsuSequence = ""

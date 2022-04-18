@@ -79,6 +79,10 @@ class FireballJutsu(Jutsu):
         playerHealth = getattr(player, "health") - self.damage
         setattr(player, "health", playerHealth)
 
+        # If the player has no health, kill the player
+        if player.health <= 0:
+            player.dead = True
+
 class MudWall(Jutsu):
     """ This class represents the earth-natured mud wall jutsu. """
 

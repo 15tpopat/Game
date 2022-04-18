@@ -81,7 +81,7 @@ def main(crosshair: Crosshair, activatedJutsu: str, db: dict, playerList: dict, 
     timePassed = 0
 
     # Start game loop
-    while True:
+    while not player.dead:
         # Event processing
         for event in pygame.event.get():
             # If they click the exit button, quit pygame and exit python
@@ -217,6 +217,9 @@ def main(crosshair: Crosshair, activatedJutsu: str, db: dict, playerList: dict, 
         # Limit the screen updates to FPS frames per second
         clock.tick(FPS)
 
+    # If the player has died, end the game gracefully
+    network.socket.close()
+
 if __name__ == "__main__":
     # Initialise pygame
     pygame.init()
@@ -231,10 +234,6 @@ if __name__ == "__main__":
 
     # Ensure that the mouse is invisible whilst still moving the crosshair
     pygame.mouse.set_cursor((8,8),(0,0),(0,0,0,0,0,0,0,0),(0,0,0,0,0,0,0,0))
-
-    # Initiate the connection to the server and retrieve the player
-    network = Network()
-    player = network.player
 
     # Setup necessary files, images, objects and variables
     with open(DATABASE_PATH, "r") as file:
@@ -269,8 +268,13 @@ if __name__ == "__main__":
     pygame.mixer.music.set_volume(DEFAULT_VOLUME)
     pygame.mixer.music.play(-1) # Play the music on loop
 
-    # Open the main menu and run the menu loop
-    Menu(screen)
+    while True:
+        # Open the main menu and run the menu loop
+        Menu(screen)
 
-    # Run the main loop
-    main(crosshair, activatedJutsu, db, playerList, jutsuList, jutsuIndex)
+        # Initiate the connection to the server and retrieve the player
+        network = Network()
+        player = network.player
+
+        # Run the main loop
+        main(crosshair, activatedJutsu, db, playerList, jutsuList, jutsuIndex)
