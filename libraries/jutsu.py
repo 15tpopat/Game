@@ -72,9 +72,6 @@ class FireballJutsu(Jutsu):
         self.damage = db["characteristics"]["damage"]
 
     def collide(self, player) -> int:
-        self.remove = True
-        setattr(self, "remove", True)
-
         # Reduce the health of the player when the jutsu collides with the player
         playerHealth = getattr(player, "health") - self.damage
         setattr(player, "health", playerHealth)
@@ -201,7 +198,7 @@ class MistBarrier(Jutsu):
             self.remove = True
 
 class Chidori(Jutsu):
-    """ This class represents the lightning-natured limelight minor jutsu. """
+    """ This class represents the lightning-natured chidori jutsu. """
 
     def __init__(
         self,

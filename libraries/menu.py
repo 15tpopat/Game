@@ -49,7 +49,7 @@ class Menu:
         # Enable the main menu and make it visible
         self.mainMenu.mainloop(self.screen, fps_limit=FPS)
 
-    def createMainMenu(self):
+    def createMainMenu(self) -> None:
         # Create the multiplayer button
         self.mainMenu.add.button(
             "Multiplayer",
@@ -80,7 +80,7 @@ class Menu:
             pyMenu.events.EXIT,
             selection_color="#FFFFFF")
 
-    def createMultiplayerMenu(self):
+    def createMultiplayerMenu(self) -> None:
         # Create the username input button
         self.multiplayerMenu.add.text_input(
             "Name: ",
@@ -100,7 +100,7 @@ class Menu:
             pyMenu.events.BACK,
             selection_color="#FFFFFF")
 
-    def createSettingsMenu(self):
+    def createSettingsMenu(self) -> None:
         # Create the music button
         self.settingsMenu.add.toggle_switch(
             "Music",
@@ -135,19 +135,19 @@ class Menu:
             pyMenu.events.BACK,
             selection_color="#FFFFFF")
 
-    def startTraining(self):
+    def startTraining(self) -> None:
         pass
 
-    def startGuide(self):
+    def startGuide(self) -> None:
         pass
 
-    def changeUsername(self, value):
+    def changeUsername(self, value) -> None:
         self.vars["username"] = value
 
-    def startMultiplayer(self):
+    def startMultiplayer(self) -> None:
         self.multiplayerMenu.disable()
 
-    def toggleMusic(self, value):
+    def toggleMusic(self, value) -> None:
         if value:
             pygame.mixer.music.unpause()
         else:
@@ -155,10 +155,10 @@ class Menu:
 
         self.vars["music"] = value
 
-    def toggleSoundEffects(self, value):
+    def toggleSoundEffects(self, value) -> None:
         self.vars["sound_effects"] = value
 
-    def toggleFullscreen(self, value):
+    def toggleFullscreen(self, value) -> None:
         if value:
             infoObject = pygame.display.Info()
             self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
@@ -173,5 +173,5 @@ class Menu:
 
         self.vars["fullscreen"] = value
 
-    def toggleCrossInputMatches(self, value):
+    def toggleCrossInputMatches(self, value) -> None:
         self.vars["cross_input_matches"] = value

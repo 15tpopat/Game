@@ -81,7 +81,7 @@ def main(crosshair: Crosshair, activatedJutsu: str, db: dict, playerList: dict, 
     timePassed = 0
 
     # Start game loop
-    while not player.dead:
+    while True:
         # Event processing
         for event in pygame.event.get():
             # If they click the exit button, quit pygame and exit python
@@ -108,6 +108,7 @@ def main(crosshair: Crosshair, activatedJutsu: str, db: dict, playerList: dict, 
                 if event.button == 1:
                     jutsuID = randint(0, JUTSU_ID_RANGE)
 
+                    # Launch the jutsu
                     if activatedJutsu == "fireball_jutsu":
                         jutsu = FireballJutsu(
                             player.rect,
@@ -174,7 +175,7 @@ def main(crosshair: Crosshair, activatedJutsu: str, db: dict, playerList: dict, 
                 if player.playerID != collidedJutsu.playerID:
                     # If the player has not collided with this jutsu before...
                     if collidedJutsu.jutsuID not in collidedJutsuList:
-                        # Reduce the chances of a jutsu being instantly
+                        # Reduce the chances of a jutsu being instantly killed
                         if len(collidedJutsuList) == 3:
                             collidedJutsuList.pop(0)
 
@@ -211,6 +212,10 @@ def main(crosshair: Crosshair, activatedJutsu: str, db: dict, playerList: dict, 
             # Otherwise...
             if update:
                 jutsuObject.update()
+
+        # If the player has died...
+        if player.dead:
+            break
 
         # Update the screen
         updateScreen(crosshair, player, playerList, jutsuList)

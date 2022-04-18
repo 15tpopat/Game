@@ -7,7 +7,7 @@ from settings import *
 from logging import *
 
 class Network:
-    """ This class represents the the client interface to the server. """
+    """ This class represents the client interface to the server. """
 
     def __init__(self) -> object:
         # Create an IPV4 TCP socket

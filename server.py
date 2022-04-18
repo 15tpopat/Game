@@ -39,7 +39,6 @@ class Server:
 
     def listenForConnections(self) -> None:
         while True:
-            print(players)
             # Accept incoming connections and create a new thread for each connection
             conn, clientAddress = self.socket.accept()
             infoMessage(f"Connection from {clientAddress}")
