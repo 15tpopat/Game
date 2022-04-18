@@ -23,9 +23,6 @@ class Server:
         self.port = PORT
         self.addr = (self.host, self.port)
 
-        # Set the game tracking attributes
-        self.playerIndex = 0
-
     def start(self) -> None:
         # Try to create a socket to an unbinded address
         # If the address is already binded, an error will occur
@@ -42,16 +39,14 @@ class Server:
 
     def listenForConnections(self) -> None:
         while True:
+            print(players)
             # Accept incoming connections and create a new thread for each connection
             conn, clientAddress = self.socket.accept()
             infoMessage(f"Connection from {clientAddress}")
-            clientThread = Thread(target=self.clientThread, args=(conn, clientAddress, self.playerIndex))
+            clientThread = Thread(target=self.clientThread, args=(conn, clientAddress))
             clientThread.start()
 
-            # Increment the player ID
-            self.playerIndex += 1
-
-    def clientThread(self, conn: socket.socket, clientAddress: tuple, playerIndex: int) -> None:
+    def clientThread(self, conn: socket.socket, clientAddress: tuple) -> None:
         global jutsu
 
         # Create the player and add them to the list containing all players
@@ -64,12 +59,13 @@ class Server:
             "lightning",    # Primary Affinity
             "fire",         # Secondary Affinity
         )
-        players[playerIndex] = player
-        currentPlayer = players[playerIndex]
+        playerID = player.playerID
+        players[playerID] = player
+        currentPlayer = players[playerID]
 
         # Send the initial player object to the newly connected client
-        conn.send(pDumps(players[playerIndex]))
-        infoMessage(f"Started thread with player index: {playerIndex}")
+        conn.send(pDumps(players[playerID]))
+        infoMessage(f"Started thread with player index: {playerID}")
 
         # Whilst the player is connected...
         connected = True
@@ -77,7 +73,7 @@ class Server:
             try:
                 # Receive the updated state of the player
                 data = pLoads(conn.recv(DATA_SIZE))
-                players[playerIndex] = data["player"]
+                players[playerID] = data["player"]
 
                 # Reset the player list
                 playerList = {}
@@ -115,8 +111,7 @@ class Server:
 
         # Decrement the player ID and delete the respective player object
         infoMessage(f"Ended threaded tasks for client: {clientAddress}")
-        self.playerIndex -= 1
-        del players[playerIndex]
+        del players[playerID]
         conn.close()
 
 def main() -> None:
